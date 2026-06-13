@@ -107,8 +107,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (movementValue.sqrMagnitude > 0f)
         {
-            // playerAnimator.SetBool("moving", true);
-
+            playerAnimator.SetBool("moving", true);
 
             // footStepTimer += Time.deltaTime;
 
@@ -126,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            // playerAnimator.SetBool("moving", false);
+            playerAnimator.SetBool("moving", false);
         }
 
         if (movementValue.x < 0)
