@@ -1,0 +1,24 @@
+lastman.png
+size:456,928
+filter:Linear,Linear
+bolt
+bounds:2,26,258,258
+head
+bounds:287,408,141,212
+leg2
+bounds:287,867,57,154
+rotate:90
+torso
+bounds:262,2,190,226
+wrench
+bounds:2,286,283,638
+레이어 12
+bounds:287,331,140,75
+레이어 13
+bounds:287,256,73,105
+rotate:90
+레이어 4
+bounds:287,622,243,151
+rotate:90
+레이어 9
+bounds:394,230,52,99
