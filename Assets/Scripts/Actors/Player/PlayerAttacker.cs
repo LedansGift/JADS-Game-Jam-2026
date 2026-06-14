@@ -5,9 +5,13 @@ using UnityEngine;
 
 public class PlayerAttacker : MonoBehaviour
 {
+    private bool attackHeld = false;
     private bool charging = false;
     private bool isBusy = false;
     private bool canAttack = false;
+
+    private float chargeTime = 0f;
+    private float maxChargeDuration = 3f;
 
     private float attackHitDelay = 0.15f;
     private PlayerStats playerStats;
@@ -42,7 +46,13 @@ public class PlayerAttacker : MonoBehaviour
         InputManager.Instance.OnAttackReleaseEvent -= WeaponAttackRelease;
     }
 
-    private void Update() { }
+    private void Update()
+    {
+        if (charging)
+        {
+            chargeTime += Time.deltaTime;
+        }
+    }
 
     private void WeaponAttack()
     {
@@ -53,6 +63,8 @@ public class PlayerAttacker : MonoBehaviour
 
         playerAnimator.SetTrigger("attack");
 
+        attackHeld = true;
+
         attackCoroutine = StartCoroutine(WrenchSlash());
     }
 
@@ -62,6 +74,17 @@ public class PlayerAttacker : MonoBehaviour
         {
             return;
         }
+
+        attackHeld = false;
+
+        if (!charging)
+        {
+            return;
+        }
+
+        charging = false;
+
+        StartCoroutine(WrenchChargeSlash());
     }
 
     private void WeaponRepair()
@@ -82,7 +105,41 @@ public class PlayerAttacker : MonoBehaviour
 
         yield return new WaitForSeconds(attackHitDelay);
 
+        if (attackHeld)
+        {
+            playerAnimator.SetTrigger("chargeAttackReady");
+            chargeTime = 0f;
+            charging = true;
+            yield break;
+        }
+
         HitEnemies(playerStats.GetAttackDamage(), playerStats.GetAttackRange());
+
+        yield return new WaitForSeconds(playerStats.GetAttackSpeed() - attackHitDelay);
+
+        isBusy = false;
+    }
+
+    private IEnumerator WrenchChargeSlash()
+    {
+        chargeTime = Mathf.Min(chargeTime, maxChargeDuration);
+
+        float attackDamage = Mathf.Lerp(
+            playerStats.GetMinChargeAttackDamage(),
+            playerStats.GetMaxChargeAttackDamage(),
+            chargeTime / maxChargeDuration
+        );
+
+        if (chargeTime >= maxChargeDuration)
+        {
+            playerAnimator.SetTrigger("chargeAttackStrong");
+        }
+        else
+        {
+            playerAnimator.SetTrigger("chargeAttackWeak");
+        }
+
+        HitEnemies(attackDamage, playerStats.GetAttackRange());
 
         yield return new WaitForSeconds(playerStats.GetAttackSpeed() - attackHitDelay);
 

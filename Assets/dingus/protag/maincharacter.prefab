@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 4074365136404070089}
   - component: {fileID: 5084861257483838374}
   - component: {fileID: 1765285904587228189}
+  - component: {fileID: 7254044130000366651}
   m_Layer: 0
   m_Name: Spine Mecanim GameObject (lastman)
   m_TagString: Untagged
@@ -294,7 +295,7 @@ Animator:
   m_GameObject: {fileID: 3802466795115589215}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: effab805e59e24d42bc30a295cede795, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0c525e329dfe7b547abe46a1f94ffaf2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -393,3 +394,18 @@ MonoBehaviour:
   addNormalsDeprecated: 0
   calculateTangentsDeprecated: 0
   maskInteractionDeprecated: 0
+--- !u!114 &7254044130000366651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3802466795115589215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f1677a9eb5ef4749827c84181ef958b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::chargeAttackSample
+  anim: {fileID: 4074365136404070089}
+  chargeTime: 0
+  charging: 0

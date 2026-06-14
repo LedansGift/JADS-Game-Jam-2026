@@ -13,6 +13,12 @@ public class PlayerStats : MonoBehaviour
     private float attackDamage = 1f;
 
     [SerializeField]
+    private float attackMinChargeDamage = 10f;
+
+    [SerializeField]
+    private float attackMaxChargeDamage = 50f;
+
+    [SerializeField]
     private float repairDamage = 20f;
 
     [SerializeField]
@@ -47,6 +53,16 @@ public class PlayerStats : MonoBehaviour
     public float GetAttackDamage()
     {
         return attackDamage;
+    }
+
+    public float GetMinChargeAttackDamage()
+    {
+        return attackMinChargeDamage;
+    }
+
+    public float GetMaxChargeAttackDamage()
+    {
+        return attackMaxChargeDamage;
     }
 
     public float GetRepairDamage()
