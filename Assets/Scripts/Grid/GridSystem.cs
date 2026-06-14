@@ -81,30 +81,22 @@ public class GridSystem<TGridObject>
         return gridObjectArray[gridPosition.x, gridPosition.y];
     }
 
-    private bool CheckIfTileAccessible(GridPosition gridPosition)
-    {
-        float tileCheckRadius = .1f;
-
-        Collider2D[] blockingColliders = Physics2D.OverlapCircleAll(
-            GetWorldPosition(gridPosition),
-            tileCheckRadius
-        );
-
-        // Collider[] colliderArray = Physics.OverlapSphere(
-        //     new Vector3(gridPosition.x * cellSize, 0, gridPosition.y * cellSize),
-        //     tileCheckRadius
-        // );
-
-        foreach (Collider2D collider in blockingColliders)
-        {
-            if (collider.gameObject.layer == 7)
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
+    // private bool CheckIfTileExists(GridPosition gridPosition)
+    // {
+    //     float tileCheckRadius = .5f;
+    //     Collider[] colliderArray = Physics.OverlapSphere(
+    //         new Vector3(gridPosition.x * cellSize, 0, gridPosition.z * cellSize),
+    //         tileCheckRadius
+    //     );
+    //     foreach (Collider collider in colliderArray)
+    //     {
+    //         if (collider.gameObject.layer == 6)
+    //         {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
 
     //Tests if the tile is within the Grid
     public bool IsValidGridPosition(GridPosition gridPosition)
@@ -112,8 +104,8 @@ public class GridSystem<TGridObject>
         return gridPosition.x >= 0
             && gridPosition.y >= 0
             && gridPosition.x < width
-            && gridPosition.y < height
-            && CheckIfTileAccessible(gridPosition);
+            && gridPosition.y < height;
+        //&& CheckIfTileExists(gridPosition);
     }
 
     public int GetWidth() //of the Grid

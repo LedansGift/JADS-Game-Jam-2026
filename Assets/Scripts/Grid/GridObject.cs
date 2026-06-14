@@ -5,7 +5,7 @@ using UnityEngine;
 public class GridObject
 {
     //Each tile on the Grid is a GridObject
-    private List<Structure> gridStructureList; //All units currently on the tile
+    private List<IPlaceable> gridPlaceableList; //All units currently on the tile
     private GridSystem<GridObject> gridSystem;
 
     private GridPosition gridPosition; //Position of this tile
@@ -14,7 +14,7 @@ public class GridObject
     {
         this.gridPosition = gridPosition;
         this.gridSystem = gridSystem;
-        gridStructureList = new List<Structure>();
+        gridPlaceableList = new List<IPlaceable>();
     }
 
     public GridPosition GetGridPosition()
@@ -22,31 +22,31 @@ public class GridObject
         return gridPosition;
     }
 
-    public List<Structure> GetGridStructureList()
+    public List<IPlaceable> GetGridPlaceableList()
     {
-        return gridStructureList;
+        return gridPlaceableList;
     }
 
-    public void AddGridStructure(Structure gridStructure)
+    public void AddGridPlaceable(IPlaceable gridPlaceable)
     {
-        gridStructureList.Add(gridStructure);
+        gridPlaceableList.Add(gridPlaceable);
     }
 
-    public void RemoveGridStructure(Structure gridStructure)
+    public void RemoveGridPlaceable(IPlaceable gridPlaceable)
     {
-        gridStructureList.Remove(gridStructure);
+        gridPlaceableList.Remove(gridPlaceable);
     }
 
-    public bool HasAnyStructure()
+    public bool HasAnyPlaceable()
     {
-        return gridStructureList.Count > 0;
+        return gridPlaceableList.Count > 0;
     }
 
-    public Structure GetStructure()
+    public IPlaceable GetPlaceable()
     {
-        if (HasAnyStructure())
+        if (HasAnyPlaceable())
         {
-            return gridStructureList[0];
+            return gridPlaceableList[0];
         }
         else
         {

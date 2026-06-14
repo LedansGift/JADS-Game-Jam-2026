@@ -13,15 +13,6 @@ public class PlayerStats : MonoBehaviour
     private float attackDamage = 1f;
 
     [SerializeField]
-    private float repairDamage = 20f;
-
-    [SerializeField]
-    private float attackRange = 2.5f;
-
-    [SerializeField]
-    private float repairRange = 4f;
-
-    [SerializeField]
     private float attackSpeed = 1f;
 
     [Header("Dash")]
@@ -47,21 +38,6 @@ public class PlayerStats : MonoBehaviour
     public float GetAttackDamage()
     {
         return attackDamage;
-    }
-
-    public float GetRepairDamage()
-    {
-        return repairDamage;
-    }
-
-    public float GetAttackRange()
-    {
-        return attackRange;
-    }
-
-    public float GetRepairRange()
-    {
-        return repairRange;
     }
 
     public float GetAttackSpeed()

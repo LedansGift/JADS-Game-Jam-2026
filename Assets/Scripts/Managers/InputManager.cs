@@ -11,7 +11,6 @@ public class InputManager : MonoBehaviour, Controls.IPlayerActions
     public Vector2 MovementValue { get; private set; }
     public Vector2 MousePosition { get; private set; }
     public Action OnAttackEvent;
-    public Action OnAttackReleaseEvent;
     public Action OnRepairEvent;
     public Action OnBuildEvent;
     public Action OnCycleLeftEvent;
@@ -82,10 +81,6 @@ public class InputManager : MonoBehaviour, Controls.IPlayerActions
         if (context.performed)
         {
             OnAttackEvent?.Invoke();
-        }
-        else if (context.canceled)
-        {
-            OnAttackReleaseEvent?.Invoke();
         }
     }
 
