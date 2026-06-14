@@ -1,0 +1,11 @@
+lanewalker.png
+size:1052,740
+filter:Linear,Linear
+arm
+bounds:575,213,523,473
+rotate:90
+body
+bounds:2,6,571,730
+head
+bounds:575,2,209,323
+rotate:90
