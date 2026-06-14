@@ -1,0 +1,20 @@
+towercrusher.png
+size:1052,1268
+filter:Linear,Linear
+레이어 10
+bounds:2,989,277,1039
+rotate:90
+레이어 2
+bounds:552,90,253,620
+레이어 3
+bounds:807,105,243,605
+레이어 4
+bounds:552,712,174,468
+rotate:90
+레이어 5
+bounds:552,888,99,472
+rotate:90
+레이어 8
+bounds:2,319,548,668
+레이어 9
+bounds:2,2,494,315
