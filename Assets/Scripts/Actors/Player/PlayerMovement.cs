@@ -1,6 +1,4 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -45,8 +43,6 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         inputManager = InputManager.Instance;
-
-        ToggleCanMove(true);
 
         PlayerManager.OnPlayerDead += OnPlayerDead;
     }

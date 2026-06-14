@@ -53,43 +53,43 @@ public class LevelGrid : MonoBehaviour
         return false;
     }
 
-    public void AddPlaceableAtGridPosition(GridPosition gridPosition, IPlaceable placeable)
+    public void AddStructureAtGridPosition(GridPosition gridPosition, Structure structure)
     {
         if (HasGridObject(gridPosition))
-            gridSystem.GetGridObject(gridPosition).AddGridPlaceable(placeable);
+            gridSystem.GetGridObject(gridPosition).AddGridStructure(structure);
     }
 
-    public void RemovePlaceableAtGridPosition(GridPosition gridPosition, IPlaceable placeable)
+    public void RemoveStructureAtGridPosition(GridPosition gridPosition, Structure structure)
     {
-        gridSystem.GetGridObject(gridPosition).RemoveGridPlaceable(placeable);
+        gridSystem.GetGridObject(gridPosition).RemoveGridStructure(structure);
     }
 
-    public IPlaceable GetPlaceableAtGridPosition(GridPosition gridPosition)
+    public Structure GetStructureAtGridPosition(GridPosition gridPosition)
     {
         GridObject gridObject = gridSystem.GetGridObject(gridPosition);
-        return gridObject.GetPlaceable();
+        return gridObject.GetStructure();
     }
 
-    public bool HasAnyPlaceableOnGridPosition(GridPosition gridPosition)
+    public bool HasAnyStructureOnGridPosition(GridPosition gridPosition)
     {
         if (!HasGridObject(gridPosition))
             return false;
         GridObject gridObject = gridSystem.GetGridObject(gridPosition);
-        return gridObject.HasAnyPlaceable();
+        return gridObject.HasAnyStructure();
     }
 
-    public bool TryGetPlaceableAtGridPosition(GridPosition gridPosition, out IPlaceable placeable)
+    public bool TryGetStructureAtGridPosition(GridPosition gridPosition, out Structure structure)
     {
-        placeable = null;
+        structure = null;
         if (!IsValidGridPosition(gridPosition))
         {
             return false;
         }
 
         GridObject gridObject = gridSystem.GetGridObject(gridPosition);
-        if (gridObject.HasAnyPlaceable())
+        if (gridObject.HasAnyStructure())
         {
-            placeable = gridObject.GetPlaceable();
+            structure = gridObject.GetStructure();
             return true;
         }
         else
