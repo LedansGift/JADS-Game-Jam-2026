@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: towercrusher_SkeletonData
   m_EditorClassIdentifier: spine-unity::Spine.Unity.SkeletonDataAsset
   atlasAssets:
-  - {fileID: 11400000, guid: 5da45f1c9f290c968b885d5da19a561a, type: 2}
+  - {fileID: 11400000, guid: 813bc1294a60608448c8cd057ab2d304, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: 9a8ffbd45f180215bba2855232fd3ee1, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: fa9dfe84593fe33469faa68fd66e50b8, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 0}
+  controller: {fileID: 9100000, guid: 42100649e8d4bd646abc63d0c993ca0f, type: 2}

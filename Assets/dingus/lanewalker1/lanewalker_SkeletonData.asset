@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: lanewalker_SkeletonData
   m_EditorClassIdentifier: spine-unity::Spine.Unity.SkeletonDataAsset
   atlasAssets:
-  - {fileID: 11400000, guid: 990baae690364d300b8f787d8e3587d0, type: 2}
-  scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: 80f36d64043b34fc1ae8d6ea4e22e86f, type: 3}
+  - {fileID: 11400000, guid: f64c513cd63a304418f8646a4885f3ce, type: 2}
+  scale: 0.008
+  skeletonJSON: {fileID: 4900000, guid: ed7cee3c358fd5d45a236dae1fe0793a, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 0}
+  controller: {fileID: 9100000, guid: 1592886eae8dd8d48a63d12362d82f3b, type: 2}

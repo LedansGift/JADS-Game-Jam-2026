@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1435134968193965710
+--- !u!1 &2940774956668773461
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,43 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1695486245952927004}
-  m_Layer: 0
-  m_Name: maincharacter
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1695486245952927004
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1435134968193965710}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5379444371777442106}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3317853453548142818
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3533124081715306883}
-  - component: {fileID: 4935761235517471235}
-  - component: {fileID: 1073809018955719115}
-  - component: {fileID: 7442965615884505651}
-  - component: {fileID: 3683257223176575103}
+  - component: {fileID: 7357851150536497006}
+  - component: {fileID: 2066592744105342250}
+  - component: {fileID: 4855313875934176027}
+  - component: {fileID: 923091740776082074}
   m_Layer: 0
   m_Name: hitbox
   m_TagString: Untagged
@@ -52,34 +19,34 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3533124081715306883
+--- !u!4 &7357851150536497006
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3317853453548142818}
+  m_GameObject: {fileID: 2940774956668773461}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1226453, y: 0.1122644, z: 0}
+  m_LocalPosition: {x: 7.548019, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5379444371777442106}
+  m_Father: {fileID: 1939938296105647068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4935761235517471235
+--- !u!114 &2066592744105342250
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3317853453548142818}
+  m_GameObject: {fileID: 2940774956668773461}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0317ee9ba6e1b1e49a030268e026d372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: spine-unity::Spine.Unity.BoundingBoxFollower
-  skeletonRenderer: {fileID: 5084861257483838374}
+  skeletonRenderer: {fileID: 6831701560016897748}
   slotName: hitbox
   isTrigger: 1
   usedByEffector: 0
@@ -87,13 +54,13 @@ MonoBehaviour:
   clearStateOnDisable: 1
   previousSkeletonRenderer: {fileID: 0}
   wasUpgradedTo43: 1
---- !u!60 &1073809018955719115
+--- !u!60 &4855313875934176027
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3317853453548142818}
+  m_GameObject: {fileID: 2940774956668773461}
   m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
@@ -133,64 +100,37 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.2603, y: 1.0001}
-      - {x: -0.2229, y: -0.8897}
-      - {x: 2.8457, y: -0.871}
-      - {x: 2.8270001, y: 1.0001}
+    - - {x: -3.8532002, y: 0.92376006}
+      - {x: -3.8532002, y: -1.0936}
+      - {x: 0.52152, y: -1.0936}
+      - {x: 0.45352, y: 0.92376006}
   m_UseDelaunayMesh: 1
---- !u!114 &7442965615884505651
+--- !u!114 &923091740776082074
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3317853453548142818}
+  m_GameObject: {fileID: 2940774956668773461}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1fd8daaed7b64148a34acb96ba14ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: spine-unity::Spine.Unity.BoneFollower
-  skeletonRenderer: {fileID: 5084861257483838374}
+  skeletonRenderer: {fileID: 6831701560016897748}
   boneName: hitbox
   followXYPosition: 1
   followZPosition: 1
   followAttachmentZSpacing: 0
   followBoneRotation: 1
   followSkeletonFlip: 1
-  followLocalScale: 0
+  followLocalScale: 1
   followParentWorldScale: 0
   maintainedAxisOrientation: 1
   initializeOnAwake: 1
   previousSkeletonRenderer: {fileID: 0}
   wasUpgradedTo43: 1
---- !u!50 &3683257223176575103
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3317853453548142818}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!1 &3802466795115589215
+--- !u!1 &5881713286889015861
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,51 +138,50 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5379444371777442106}
-  - component: {fileID: 578350738714461799}
-  - component: {fileID: 4033009533382519305}
-  - component: {fileID: 4074365136404070089}
-  - component: {fileID: 5084861257483838374}
-  - component: {fileID: 1765285904587228189}
-  - component: {fileID: 7254044130000366651}
+  - component: {fileID: 1939938296105647068}
+  - component: {fileID: 8080825956000175863}
+  - component: {fileID: 7885784608576432760}
+  - component: {fileID: 8638420644448987115}
+  - component: {fileID: 6831701560016897748}
+  - component: {fileID: 107210864356240205}
   m_Layer: 0
-  m_Name: Spine Mecanim GameObject (lastman)
+  m_Name: Spine Mecanim GameObject (lanewalker)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5379444371777442106
+--- !u!4 &1939938296105647068
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3802466795115589215}
+  m_GameObject: {fileID: 5881713286889015861}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.75, y: -0.77, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3533124081715306883}
-  m_Father: {fileID: 1695486245952927004}
+  - {fileID: 7357851150536497006}
+  m_Father: {fileID: 178170143494465890}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &578350738714461799
+--- !u!33 &8080825956000175863
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3802466795115589215}
+  m_GameObject: {fileID: 5881713286889015861}
   m_Mesh: {fileID: 0}
---- !u!23 &4033009533382519305
+--- !u!23 &7885784608576432760
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3802466795115589215}
+  m_GameObject: {fileID: 5881713286889015861}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -261,7 +200,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b9f55a819aeab164692d8a90f48c758b, type: 2}
+  - {fileID: 2100000, guid: f9b2997d990e46e4fa3df2706b98e263, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -282,20 +221,20 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &4074365136404070089
+--- !u!95 &8638420644448987115
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3802466795115589215}
+  m_GameObject: {fileID: 5881713286889015861}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0c525e329dfe7b547abe46a1f94ffaf2, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1592886eae8dd8d48a63d12362d82f3b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -307,19 +246,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5084861257483838374
+--- !u!114 &6831701560016897748
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3802466795115589215}
+  m_GameObject: {fileID: 5881713286889015861}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e075b9a3e08e2f74fbd651c858ab16ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: spine-unity::Spine.Unity.SkeletonRenderer
-  skeletonDataAsset: {fileID: 11400000, guid: 16886f7e3916c7b49a7d0c8c9b82bd5e, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: d65ecd2d806fc15478af9c1053825eea, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -355,13 +294,13 @@ MonoBehaviour:
   tintBlackDeprecated: 0
   addNormalsDeprecated: 0
   calculateTangentsDeprecated: 0
---- !u!114 &1765285904587228189
+--- !u!114 &107210864356240205
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3802466795115589215}
+  m_GameObject: {fileID: 5881713286889015861}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9db98c60740638449864eb028fbe7ad, type: 3}
@@ -394,18 +333,35 @@ MonoBehaviour:
   addNormalsDeprecated: 0
   calculateTangentsDeprecated: 0
   maskInteractionDeprecated: 0
---- !u!114 &7254044130000366651
-MonoBehaviour:
+--- !u!1 &8462972155872221697
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3802466795115589215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f1677a9eb5ef4749827c84181ef958b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::chargeAttackSample
-  anim: {fileID: 4074365136404070089}
-  chargeTime: 0
-  charging: 0
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 178170143494465890}
+  m_Layer: 0
+  m_Name: lanewalker1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &178170143494465890
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8462972155872221697}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.84, y: 0.9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1939938296105647068}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
