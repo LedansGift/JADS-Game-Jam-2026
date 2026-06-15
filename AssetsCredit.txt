@@ -1,0 +1,22 @@
+======== Audio
+- Impact
+https://opengameart.org/content/impact
+- 3 Melee Sounds
+https://opengameart.org/content/3-melee-sounds
+- 37 HITS/PUNCHES
+https://opengameart.org/content/37-hitspunches
+- 50 RPG SOUND EFFECTS
+https://opengameart.org/content/50-rpg-sound-effects
+- Q009's Weapon Sounds
+https://opengameart.org/content/q009s-weapon-sounds
+
+
+======== Font
+- Saira Stencil Font
+https://fonts.google.com/specimen/Saira+Stencil?preview.script=Latn
+- Stalinist One
+https://fonts.google.com/specimen/Stalinist+One
+- Oxanium
+https://fonts.google.com/specimen/Oxanium
+- Quantico
+https://fonts.google.com/specimen/Quantico
