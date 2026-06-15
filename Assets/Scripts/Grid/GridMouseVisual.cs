@@ -70,10 +70,12 @@ public class GridMouseVisual : MonoBehaviour
     {
         gridPosition = currentGridPosition;
 
-        //Must be within level bounds
-        //Must not be an ilegal space
-
         return LevelGrid.Instance.IsValidGridPosition(gridPosition);
+    }
+
+    public bool IsLaneGridPosition(GridPosition gridPosition)
+    {
+        return LevelGrid.Instance.IsLanePosition(gridPosition);
     }
 
     public void ToggleMouseVisibility(bool toggle)
