@@ -9,7 +9,8 @@ https://opengameart.org/content/37-hitspunches
 https://opengameart.org/content/50-rpg-sound-effects
 - Q009's Weapon Sounds
 https://opengameart.org/content/q009s-weapon-sounds
-
+https://opengameart.org/content/11-male-human-paindeath-sounds
+https://fonts.google.com/specimen/Tac+One
 
 ======== Font
 - Saira Stencil Font
