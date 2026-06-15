@@ -4,17 +4,11 @@ public class PlayerMovement : MonoBehaviour
 {
     private bool canMove;
 
-    //private bool dashAvailable;
-
-
-    //private float dashModifier = 1f;
-    //private float dashTimer = 0f;
     //  private int footstepIndex = 0;
     // private float footStepTimer = 0f;
     // private const float TIME_BETWEEN_STEPS = 1.5f;
     private PlayerStats stats;
 
-    //private Coroutine dashCoroutine;
     private InputManager inputManager;
 
     [SerializeField]
@@ -27,12 +21,6 @@ public class PlayerMovement : MonoBehaviour
     private Animator playerAnimator;
 
     // [SerializeField]
-    // private Slider dashSlider;
-
-    // [SerializeField]
-    // private AudioClip dashSFX;
-
-    // [SerializeField]
     // private SFXObject[] footstepSFX;
 
     private void Awake()
@@ -43,42 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         inputManager = InputManager.Instance;
-
-        PlayerManager.OnPlayerDead += OnPlayerDead;
     }
-
-    private void OnDisable()
-    {
-        //InputManager.Instance.OnDashEvent -= TryDash;
-
-        PlayerManager.OnPlayerDead -= OnPlayerDead;
-
-        // if (dashCoroutine != null)
-        // {
-        //     StopCoroutine(dashCoroutine);
-        // }
-    }
-
-    // private void Update()
-    // {
-    //     if (canMove)
-    //     {
-    //         if (!dashAvailable)
-    //         {
-    //             dashTimer += Time.deltaTime;
-
-    //             float dashRechargeTime = stats.GetDashRechargeTime();
-
-    //             dashSlider.value = dashTimer / dashRechargeTime;
-
-    //             if (dashTimer >= dashRechargeTime)
-    //             {
-    //                 dashAvailable = true;
-    //                 dashTimer = 0f;
-    //             }
-    //         }
-    //     }
-    // }
 
     private void FixedUpdate()
     {
@@ -95,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
             playerRb.position
                 + new Vector2(movementValue.x, movementValue.y)
                     * stats.GetMovementSpeed()
-                    //* dashModifier
                     * Time.fixedDeltaTime
         );
 
@@ -136,46 +88,13 @@ public class PlayerMovement : MonoBehaviour
         return movementValue;
     }
 
-    // private void TryDash()
-    // {
-    //     if (!dashAvailable)
-    //     {
-    //         return;
-    //     }
-
-    //     dashCoroutine = StartCoroutine(ApplyDash());
-
-    //     AudioManager.PlaySFX(dashSFX, 1f, 0, transform.position);
-
-    //     dashAvailable = false;
-    // }
-
-    // private IEnumerator ApplyDash()
-    // {
-    //     dashModifier = stats.GetDashSpeedModifier();
-    //     yield return new WaitForSeconds(stats.GetDashTime());
-    //     dashModifier = 1f;
-    // }
-
     public void ToggleCanMove(bool enable)
     {
-        // if (enable)
-        // {
-        //     if (!canMove)
-        //     {
-        //         InputManager.Instance.OnDashEvent += TryDash;
-        //     }
-        // }
-        // else
-        // {
-        //     InputManager.Instance.OnDashEvent -= TryDash;
-        // }
-
         canMove = enable;
     }
 
-    private void OnPlayerDead(object sender, bool playerDead)
-    {
-        ToggleCanMove(!playerDead);
-    }
+    // private void OnPlayerDead(object sender, bool playerDead)
+    // {
+    //     ToggleCanMove(!playerDead);
+    // }
 }

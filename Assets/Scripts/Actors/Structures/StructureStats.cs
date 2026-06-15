@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Structure Stats", menuName = "Structure Stats", order = 0)]
+[CreateAssetMenu(fileName = "New Structure Stats", menuName = "Stats/Structure Stats", order = 1)]
 public class StructureStats : ScriptableObject
 {
     public float maxHealth;
