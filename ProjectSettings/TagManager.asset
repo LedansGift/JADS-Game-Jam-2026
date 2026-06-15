@@ -41,11 +41,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 2522032917
+    locked: 0
   - name: Actors
     uniqueID: 65274039
     locked: 0
   - name: UI
     uniqueID: 2912956823
+    locked: 0
+  - name: Frontground
+    uniqueID: 824660423
     locked: 0
   m_RenderingLayers:
   - Default
