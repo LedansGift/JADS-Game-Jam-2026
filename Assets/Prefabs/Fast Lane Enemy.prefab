@@ -66,6 +66,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   isPlayer: 0
+  enemyDamageSFX: {fileID: 11400000, guid: 844cd6ae7b5c83d40b37e50ebc385e09, type: 2}
+  enemyDeathSFX: {fileID: 11400000, guid: 1476fd7d86f64d34baba41c37be2aa9e, type: 2}
 --- !u!114 &6629248269489265810
 MonoBehaviour:
   m_ObjectHideFlags: 0

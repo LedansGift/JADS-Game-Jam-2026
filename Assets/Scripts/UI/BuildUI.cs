@@ -41,6 +41,11 @@ public class BuildUI : MonoBehaviour
         structuresGroup.anchoredPosition = new Vector2(STRUCTURE_GROUP_START_X, 0f);
         structureGroupXGoal = STRUCTURE_GROUP_START_X;
 
+        for (int i = 1; i < structureUIs.Length; i++)
+        {
+            structureUIs[i].SetScrapCost(structureStats[i - 1].scrapCost);
+        }
+
         SetNewActiveStructure(this, 0);
     }
 
@@ -104,7 +109,14 @@ public class BuildUI : MonoBehaviour
                 structureUIs[i + 1].ToggleUnavailable(!availabilities[i]);
             }
 
-            //Update affordability of UIs based on scrap
+            for (int i = 0; i < structureStats.Length; i++)
+            {
+                bool structureAffordable = ScrapManager.Instance.IsEnoughAvailableScrap(
+                    structureStats[i].scrapCost
+                );
+
+                structureUIs[i + 1].TogglePurchaseable(structureAffordable);
+            }
         }
 
         buildUIActive = toggle;

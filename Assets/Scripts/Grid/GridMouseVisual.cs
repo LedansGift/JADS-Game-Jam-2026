@@ -5,11 +5,21 @@ public class GridMouseVisual : MonoBehaviour
     public static GridMouseVisual Instance;
 
     private bool mouseVisualActive = false;
+    private bool laneStructureActive = false;
     private GridPosition currentGridPosition;
     private InputManager input;
 
     [SerializeField]
     private Transform mouseGridVisual;
+
+    [SerializeField]
+    private SpriteRenderer visualRenderer;
+
+    [SerializeField]
+    private Color availableVisual;
+
+    [SerializeField]
+    private Color unavailableVisual;
 
     //private GridSystemVisualSingle mouseGridVisualScript;
 
@@ -64,16 +74,44 @@ public class GridMouseVisual : MonoBehaviour
         mouseGridVisual.position = LevelGrid.Instance.GetWorldPosition(mouseGridPosition);
 
         //Change visual to green or red based on validity / a structure being present
+        EvaluateMouseVisual();
+    }
+
+    private void EvaluateMouseVisual()
+    {
+        bool validPosition =
+            laneStructureActive == LevelGrid.Instance.IsLanePosition(currentGridPosition);
+
+        if (validPosition && LevelGrid.Instance.IsValidGridPosition(currentGridPosition))
+        {
+            visualRenderer.color = availableVisual;
+        }
+        else
+        {
+            visualRenderer.color = unavailableVisual;
+        }
     }
 
     public bool TryGetValidGridPosition(out GridPosition gridPosition)
     {
         gridPosition = currentGridPosition;
 
-        //Must be within level bounds
-        //Must not be an ilegal space
-
         return LevelGrid.Instance.IsValidGridPosition(gridPosition);
+    }
+
+    public bool IsLaneGridPosition(GridPosition gridPosition)
+    {
+        return LevelGrid.Instance.IsLanePosition(gridPosition);
+    }
+
+    public void SetLaneStructureActive(bool laneStructure)
+    {
+        laneStructureActive = laneStructure;
+
+        if (mouseVisualActive)
+        {
+            EvaluateMouseVisual();
+        }
     }
 
     public void ToggleMouseVisibility(bool toggle)

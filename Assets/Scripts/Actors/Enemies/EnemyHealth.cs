@@ -3,10 +3,16 @@ using UnityEngine;
 
 public class EnemyHealth : HealthSystem
 {
-    private bool enemyActive = false;
+    protected bool enemyActive = false;
 
     private float health;
     private float maxHealth;
+
+    [SerializeField]
+    private SFXObject enemyDamageSFX;
+
+    [SerializeField]
+    private SFXObject enemyDeathSFX;
 
     public Action OnEnemyDamaged;
     public Action OnEnemyDead;
@@ -23,10 +29,12 @@ public class EnemyHealth : HealthSystem
         if (health <= 0f)
         {
             enemyActive = false;
+            AudioManager.PlaySFX(enemyDeathSFX, transform.position);
             OnEnemyDead?.Invoke();
         }
         else
         {
+            AudioManager.PlaySFX(enemyDamageSFX, transform.position);
             OnEnemyDamaged?.Invoke();
         }
     }

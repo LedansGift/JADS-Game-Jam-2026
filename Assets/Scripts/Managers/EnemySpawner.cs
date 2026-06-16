@@ -5,23 +5,31 @@ public enum EnemyType
 {
     fastLane,
     slowLane,
-    roamer
+    roamer,
+    supplyTrain
 }
 
 public class EnemySpawner : MonoBehaviour
 {
     private int fastLaneIndex = 0;
     private int slowLaneIndex = 0;
+    private int crusherIndex = 0;
 
     private int aliveEnemies = 0;
 
     private RouteManager routeManager;
 
     [SerializeField]
-    private EnemyController[] fastLanes;
+    private TrainManager trainManager;
 
     [SerializeField]
-    private EnemyController[] slowLanes;
+    private EnemyController[] fastLaneEnemies;
+
+    [SerializeField]
+    private EnemyController[] slowLanesEnemies;
+
+    [SerializeField]
+    private EnemyController[] crusherEnemies;
 
     private void Start()
     {
@@ -38,37 +46,65 @@ public class EnemySpawner : MonoBehaviour
         EnemyController.OnEnemyDead -= ReduceEnemyCount;
     }
 
-    public void SpawnEnemy(EnemyType enemyType)
+    public void SpawnEnemy(EnemyType enemyType, int laneIndex = 0)
     {
+        aliveEnemies++;
+
         switch (enemyType)
         {
             case EnemyType.fastLane:
-                EnemyController fastEnemy = fastLanes[fastLaneIndex];
+                EnemyController fastEnemy = fastLaneEnemies[fastLaneIndex];
                 fastLaneIndex++;
-                if (fastLaneIndex >= fastLanes.Length)
+                if (fastLaneIndex >= fastLaneEnemies.Length)
                 {
                     fastLaneIndex = 0;
                 }
-                SpawnLaneEnemy(fastEnemy);
+                SpawnLaneEnemy(fastEnemy, laneIndex);
                 break;
             case EnemyType.slowLane:
-                EnemyController slowEnemy = slowLanes[slowLaneIndex];
+                EnemyController slowEnemy = slowLanesEnemies[slowLaneIndex];
                 slowLaneIndex++;
-                if (slowLaneIndex >= slowLanes.Length)
+                if (slowLaneIndex >= slowLanesEnemies.Length)
                 {
                     slowLaneIndex = 0;
                 }
-                SpawnLaneEnemy(slowEnemy);
+                SpawnLaneEnemy(slowEnemy, laneIndex);
                 break;
             case EnemyType.roamer:
-
+                EnemyController crusherEnemy = crusherEnemies[crusherIndex];
+                crusherIndex++;
+                if (crusherIndex >= crusherEnemies.Length)
+                {
+                    crusherIndex = 0;
+                }
+                SpawnRoamingEnemy(crusherEnemy, laneIndex);
+                break;
+            case EnemyType.supplyTrain:
+                trainManager.SpawnTrain(laneIndex);
                 break;
         }
     }
 
-    private void SpawnLaneEnemy(EnemyController enemy) { }
+    private void SpawnLaneEnemy(EnemyController enemy, int laneIndex)
+    {
+        EnemyLaneMovement laneMovement = enemy.GetComponent<EnemyLaneMovement>();
+        LaneRoute route = routeManager.GetLaneRoute(laneIndex);
 
-    private void SpawnRoamingEnemy(EnemyController enemy) { }
+        laneMovement.SetEnemyRoute(route.GetRouteWaypoints());
+        laneMovement.SpawnEnemyAtLocation(route.GetSpawnPoint().position);
+        enemy.SpawnEnemy();
+    }
+
+    private void SpawnRoamingEnemy(EnemyController enemy, int laneIndex)
+    {
+        EnemyFreeMovement freeMovement = enemy.GetComponent<EnemyFreeMovement>();
+        Transform spawnPoint = routeManager.GetRoamerSpawn(laneIndex);
+
+        freeMovement.SetEnemyRoute(routeManager.GetStrongholdPosition());
+        freeMovement.SpawnEnemyAtLocation(spawnPoint.position);
+
+        enemy.SpawnEnemy();
+    }
 
     private void ReduceEnemyCount()
     {

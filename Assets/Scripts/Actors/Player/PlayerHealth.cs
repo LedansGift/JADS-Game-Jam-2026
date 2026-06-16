@@ -38,12 +38,12 @@ public class PlayerHealth : HealthSystem
         {
             if ((i % 2) == 0)
             {
-                playerVisual.SetActive(false);
+                //playerVisual.SetActive(false);
                 yield return new WaitForSeconds(invincibilityFlash * 0.25f);
             }
             else
             {
-                playerVisual.SetActive(true);
+                //playerVisual.SetActive(true);
                 yield return new WaitForSeconds(invincibilityFlash * 0.75f);
             }
         }
@@ -69,12 +69,12 @@ public class PlayerHealth : HealthSystem
 
         if (health <= 0f)
         {
-            //AudioManager.PlaySFX(playerDeathSFX, transform.position);
+            AudioManager.PlaySFX(playerDeathSFX, transform.position);
             playerManager.KillPlayer();
         }
         else
         {
-            //AudioManager.PlaySFX(playerDamageSFX, transform.position);
+            AudioManager.PlaySFX(playerDamageSFX, transform.position);
             StartCoroutine(DamageInvincibility());
         }
     }

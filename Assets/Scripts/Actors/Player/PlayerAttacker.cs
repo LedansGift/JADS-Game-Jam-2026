@@ -14,6 +14,7 @@ public class PlayerAttacker : MonoBehaviour
     private float maxChargeDuration = 3f;
 
     private float attackHitDelay = 0.15f;
+    private float movementBeginOffset = 0.25f;
     private PlayerStats playerStats;
 
     [SerializeField]
@@ -25,7 +26,18 @@ public class PlayerAttacker : MonoBehaviour
     [SerializeField]
     private LayerMask attackLayerMask;
 
+    [SerializeField]
+    private SFXObject wrenchSwingSFX;
+
+    [SerializeField]
+    private SFXObject wrenchRepairSFX;
+
+    [SerializeField]
+    private SFXObject wrenchConstructSFX;
+
     private Coroutine attackCoroutine;
+
+    public EventHandler<bool> OnPauseMovement;
 
     private void Awake()
     {
@@ -62,6 +74,8 @@ public class PlayerAttacker : MonoBehaviour
         }
 
         playerAnimator.SetTrigger("attack");
+
+        AudioManager.PlaySFX(wrenchSwingSFX, transform.position);
 
         attackHeld = true;
 
@@ -103,6 +117,8 @@ public class PlayerAttacker : MonoBehaviour
     {
         isBusy = true;
 
+        OnPauseMovement?.Invoke(this, true);
+
         yield return new WaitForSeconds(attackHitDelay);
 
         if (attackHeld)
@@ -115,7 +131,13 @@ public class PlayerAttacker : MonoBehaviour
 
         HitEnemies(playerStats.GetAttackDamage(), playerStats.GetAttackRange());
 
-        yield return new WaitForSeconds(playerStats.GetAttackSpeed() - attackHitDelay);
+        yield return new WaitForSeconds(
+            playerStats.GetAttackSpeed() - attackHitDelay - movementBeginOffset
+        );
+
+        OnPauseMovement?.Invoke(this, false);
+
+        yield return new WaitForSeconds(movementBeginOffset);
 
         isBusy = false;
     }
@@ -141,7 +163,13 @@ public class PlayerAttacker : MonoBehaviour
 
         HitEnemies(attackDamage, playerStats.GetAttackRange());
 
-        yield return new WaitForSeconds(playerStats.GetAttackSpeed() - attackHitDelay);
+        yield return new WaitForSeconds(
+            playerStats.GetAttackSpeed() - attackHitDelay - movementBeginOffset
+        );
+
+        OnPauseMovement?.Invoke(this, false);
+
+        yield return new WaitForSeconds(movementBeginOffset);
 
         isBusy = false;
     }
@@ -150,9 +178,15 @@ public class PlayerAttacker : MonoBehaviour
     {
         isBusy = true;
 
+        OnPauseMovement?.Invoke(this, true);
+
         RepairStructures(playerStats.GetRepairDamage(), playerStats.GetRepairRange());
 
-        yield return new WaitForSeconds(playerStats.GetAttackSpeed());
+        yield return new WaitForSeconds(playerStats.GetAttackSpeed() - movementBeginOffset);
+
+        OnPauseMovement?.Invoke(this, false);
+
+        yield return new WaitForSeconds(movementBeginOffset);
 
         isBusy = false;
     }
@@ -163,6 +197,13 @@ public class PlayerAttacker : MonoBehaviour
 
         foreach (HealthSystem health in hitObjects)
         {
+            if (health.GetType() == typeof(ScrapEnemyHealth))
+            {
+                ScrapEnemyHealth scrapEnemyHealth = health as ScrapEnemyHealth;
+                int scrapDropped = scrapEnemyHealth.DropScrap();
+                ScrapManager.Instance.AddScrap(scrapDropped);
+            }
+
             health.TakeDamage(attackDamage);
         }
     }
@@ -182,6 +223,8 @@ public class PlayerAttacker : MonoBehaviour
                 {
                     hitStructure.BuildStructure();
                     structureBuild = true;
+
+                    AudioManager.PlaySFX(wrenchConstructSFX, transform.position);
                     break;
                 }
             }
@@ -205,6 +248,8 @@ public class PlayerAttacker : MonoBehaviour
             {
                 structureHealth.HealDamage(repairAmount);
                 // Use up scrap
+
+                AudioManager.PlaySFX(wrenchRepairSFX, transform.position);
                 break;
             }
         }

@@ -36,8 +36,10 @@ public class GridSystem<TGridObject>
 
     public Vector2 GetWorldPosition(GridPosition gridPosition)
     {
-        return new Vector2(gridPosition.x + gridStartOffset.x, gridPosition.y + gridStartOffset.y)
-            * cellSize;
+        return new Vector2(
+            (gridPosition.x * cellSize) + gridStartOffset.x,
+            (gridPosition.y * cellSize) + gridStartOffset.y
+        );
     }
 
     public GridPosition GetGridPosition(Vector2 worldPosition)
@@ -56,24 +58,27 @@ public class GridSystem<TGridObject>
     }
 
     //Makes all the GridDebugObjects to show the GridPosition + current units of all tiles
-    // public void CreateDebugObjects(Transform debugPrefab)
-    // {
-    //     for (int x = 0; x < width; x++)
-    //     {
-    //         for (int z = 0; z < height; z++)
-    //         {
-    //             GridPosition gridPosition = new GridPosition(x, z);
+    public void CreateDebugObjects(Transform debugPrefab, Transform debugHolder)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int z = 0; z < height; z++)
+            {
+                GridPosition gridPosition = new GridPosition(x, z);
 
-    //             Transform debugTransform = GameObject.Instantiate(
-    //                 debugPrefab,
-    //                 GetWorldPosition(gridPosition),
-    //                 Quaternion.identity
-    //             );
-    //             GridDebugObject gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
-    //             gridDebugObject.SetGridObject(GetGridObject(gridPosition));
-    //         }
-    //     }
-    // }
+                Transform debugTransform = GameObject.Instantiate(
+                    debugPrefab,
+                    GetWorldPosition(gridPosition),
+                    Quaternion.identity
+                );
+
+                debugTransform.SetParent(debugHolder);
+
+                // GridDebugObject gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
+                // gridDebugObject.SetGridObject(GetGridObject(gridPosition));
+            }
+        }
+    }
 
     //You can get a specific tile based on its GridPosition
     public TGridObject GetGridObject(GridPosition gridPosition)
@@ -81,7 +86,7 @@ public class GridSystem<TGridObject>
         return gridObjectArray[gridPosition.x, gridPosition.y];
     }
 
-    private bool CheckIfTileAccessible(GridPosition gridPosition)
+    private bool CheckIfLaneTile(GridPosition gridPosition)
     {
         float tileCheckRadius = .1f;
 
@@ -90,20 +95,15 @@ public class GridSystem<TGridObject>
             tileCheckRadius
         );
 
-        // Collider[] colliderArray = Physics.OverlapSphere(
-        //     new Vector3(gridPosition.x * cellSize, 0, gridPosition.y * cellSize),
-        //     tileCheckRadius
-        // );
-
         foreach (Collider2D collider in blockingColliders)
         {
-            if (collider.gameObject.layer == 7)
+            if (collider.gameObject.layer == 8)
             {
-                return false;
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     //Tests if the tile is within the Grid
@@ -112,8 +112,13 @@ public class GridSystem<TGridObject>
         return gridPosition.x >= 0
             && gridPosition.y >= 0
             && gridPosition.x < width
-            && gridPosition.y < height
-            && CheckIfTileAccessible(gridPosition);
+            && gridPosition.y < height;
+        //&& CheckIfTileAccessible(gridPosition);
+    }
+
+    public bool IsLanePosition(GridPosition gridPosition)
+    {
+        return CheckIfLaneTile(gridPosition);
     }
 
     public int GetWidth() //of the Grid

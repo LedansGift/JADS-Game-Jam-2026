@@ -3,14 +3,18 @@ using UnityEngine;
 
 public class Structure : MonoBehaviour
 {
-    private bool structureActive = false;
     private float buildProgress = 0;
     private float buildFinished = 4;
+
+    private GridPosition gridPosition;
 
     private StructureHealth health;
 
     [SerializeField]
     private GameObject structureTempVisual;
+
+    [SerializeField]
+    private StructureAttacker attacker;
 
     [SerializeField]
     private StructureStats stats;
@@ -20,6 +24,11 @@ public class Structure : MonoBehaviour
         health = GetComponent<StructureHealth>();
         health.SetMaxHealth(stats.maxHealth);
         health.OnStructureDestroyed += DestroyStructure;
+
+        if (attacker)
+        {
+            attacker.SetStats(stats);
+        }
     }
 
     private void OnDisable()
@@ -37,15 +46,34 @@ public class Structure : MonoBehaviour
             Debug.Log("Structure Built");
 
             //Finalise building structure, activate it
-            health.ActivateStructure();
+            health.ActivateStructure(stats.laneStructure);
             structureTempVisual.SetActive(true);
+
+            if (attacker)
+            {
+                attacker.ToggleAttacker(true);
+            }
         }
     }
 
-    private void DestroyStructure()
+    public void DestroyStructure()
     {
         //Deactivate attacker, play destroy animation
         //Destroy object
+
+        if (attacker)
+        {
+            attacker.ToggleAttacker(false);
+        }
+
+        LevelGrid.Instance.RemoveStructureAtGridPosition(gridPosition, this);
+
+        Destroy(gameObject, 1f);
+    }
+
+    public void SetStructureGridPosition(GridPosition gridPosition)
+    {
+        this.gridPosition = gridPosition;
     }
 
     public bool StructureBuilt()

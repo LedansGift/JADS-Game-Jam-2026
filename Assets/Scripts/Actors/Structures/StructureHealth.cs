@@ -5,10 +5,19 @@ using UnityEngine;
 public class StructureHealth : HealthSystem
 {
     private bool structureActive = false;
-
+    private bool laneStructure = false;
     private float health;
     private float maxHealth;
-    private float impulseStrength = 0.5f;
+    private float impulseStrength = 0.1f;
+
+    [SerializeField]
+    private SFXObject structureBuiltSFX;
+
+    [SerializeField]
+    private SFXObject structureDamagedSFX;
+
+    [SerializeField]
+    private SFXObject structureDestroyedSFX;
 
     [SerializeField]
     private CinemachineImpulseSource impulseSource;
@@ -28,14 +37,19 @@ public class StructureHealth : HealthSystem
 
         if (health <= 0f)
         {
-            //Destroy structure
-            structureActive = false;
-            OnStructureDestroyed?.Invoke();
+            DestroyStructure();
         }
         else
         {
-            //Damage structure
+            AudioManager.PlaySFX(structureDamagedSFX, transform.position);
         }
+    }
+
+    protected virtual void DestroyStructure()
+    {
+        AudioManager.PlaySFX(structureDestroyedSFX, transform.position);
+        structureActive = false;
+        OnStructureDestroyed?.Invoke();
     }
 
     public void HealDamage(float healAmount)
@@ -59,8 +73,20 @@ public class StructureHealth : HealthSystem
         health = maxHealth;
     }
 
-    public void ActivateStructure()
+    public void ActivateStructure(bool laneStructure)
     {
         structureActive = true;
+        this.laneStructure = laneStructure;
+        AudioManager.PlaySFX(structureBuiltSFX, transform.position);
+    }
+
+    public bool IsStructureActive()
+    {
+        return structureActive;
+    }
+
+    public bool GetIsLaneStructure()
+    {
+        return laneStructure;
     }
 }
