@@ -58,7 +58,7 @@ public class GridSystem<TGridObject>
     }
 
     //Makes all the GridDebugObjects to show the GridPosition + current units of all tiles
-    public void CreateDebugObjects(Transform debugPrefab)
+    public void CreateDebugObjects(Transform debugPrefab, Transform debugHolder)
     {
         for (int x = 0; x < width; x++)
         {
@@ -71,6 +71,9 @@ public class GridSystem<TGridObject>
                     GetWorldPosition(gridPosition),
                     Quaternion.identity
                 );
+
+                debugTransform.SetParent(debugHolder);
+
                 // GridDebugObject gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
                 // gridDebugObject.SetGridObject(GetGridObject(gridPosition));
             }

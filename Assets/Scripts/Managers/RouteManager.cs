@@ -5,6 +5,12 @@ public class RouteManager : MonoBehaviour
     public static RouteManager Instance;
 
     [SerializeField]
+    private Transform strongholdPosition;
+
+    [SerializeField]
+    private Transform[] roamerSpawns;
+
+    [SerializeField]
     private LaneRoute[] westRoutes;
 
     [SerializeField]
@@ -46,5 +52,20 @@ public class RouteManager : MonoBehaviour
 
         int randomPath = Random.Range(0, routes.Length);
         return routes[randomPath];
+    }
+
+    public Transform GetStrongholdPosition()
+    {
+        return strongholdPosition;
+    }
+
+    public Transform GetRoamerSpawn(int laneIndex)
+    {
+        if ((laneIndex < 0) || (laneIndex >= roamerSpawns.Length))
+        {
+            return transform;
+        }
+
+        return roamerSpawns[laneIndex];
     }
 }

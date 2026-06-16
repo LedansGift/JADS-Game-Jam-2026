@@ -23,6 +23,7 @@ public class PlayerManager : MonoBehaviour
         playerBuilder = GetComponent<PlayerBuilder>();
 
         playerBuilder.OnSuccessfulBuild += CloseBuildMenu;
+        playerAttacker.OnPauseMovement += ToggleAttackStop;
     }
 
     private void Start()
@@ -37,6 +38,7 @@ public class PlayerManager : MonoBehaviour
     {
         InputManager.Instance.OnBuildEvent -= ToggleBuilding;
         playerBuilder.OnSuccessfulBuild -= CloseBuildMenu;
+        playerAttacker.OnPauseMovement -= ToggleAttackStop;
     }
 
     private void ToggleBuilding()
@@ -60,6 +62,11 @@ public class PlayerManager : MonoBehaviour
 
     private void CloseBuildMenu()
     {
+        if (!playerActive)
+        {
+            return;
+        }
+
         playerBuilder.ToggleBuildMode(false);
         playerAttacker.ToggleCanAttack(true);
     }
@@ -79,6 +86,16 @@ public class PlayerManager : MonoBehaviour
 
         playerAnimator.SetTrigger("die");
         OnPlayerDead?.Invoke(this, true);
+    }
+
+    private void ToggleAttackStop(object sender, bool toggle)
+    {
+        if (!playerActive)
+        {
+            return;
+        }
+
+        playerMovement.ToggleCanMove(!toggle);
     }
 
     public PlayerStats GetPlayerStats()

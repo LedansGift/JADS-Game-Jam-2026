@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 9181516969652010498}
   - component: {fileID: 7039508181378051665}
   m_Layer: 7
-  m_Name: Test Structure
+  m_Name: Base Structure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,6 +156,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StructureHealth
   isPlayer: 1
+  structureBuiltSFX: {fileID: 11400000, guid: 618898276d712704981319c889367ff4, type: 2}
+  structureDamagedSFX: {fileID: 11400000, guid: f5da610dfe7f7744c95eff8490f3326e, type: 2}
+  structureDestroyedSFX: {fileID: 11400000, guid: 43ed64f89a9d7cc428c24c47fade6c1b, type: 2}
   impulseSource: {fileID: 7039508181378051665}
 --- !u!58 &3751093875912939040
 CircleCollider2D:

@@ -65,7 +65,7 @@ public class EnemyAttacker : MonoBehaviour
             structureMask
         );
 
-        List<StructureHealth> healths = new List<StructureHealth>();
+        //List<StructureHealth> healths = new List<StructureHealth>();
 
         //Debug.Log("Colliders Found: " + colliders.Length);
 

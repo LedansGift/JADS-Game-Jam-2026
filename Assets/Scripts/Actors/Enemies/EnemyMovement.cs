@@ -4,6 +4,8 @@ public abstract class EnemyMovement : MonoBehaviour
 {
     private bool movementActive = false;
     protected float movementSpeed;
+    protected float targetMovementSpeed;
+    private float movementSpeedRestoration = 2f;
 
     [SerializeField]
     private Transform visualTransform;
@@ -14,6 +16,19 @@ public abstract class EnemyMovement : MonoBehaviour
     [SerializeField]
     protected Rigidbody2D moveRb;
 
+    private void Update()
+    {
+        if (!movementActive)
+        {
+            return;
+        }
+
+        if (movementSpeed < targetMovementSpeed)
+        {
+            RestoreMovementSpeed();
+        }
+    }
+
     private void FixedUpdate()
     {
         if (movementActive)
@@ -23,6 +38,11 @@ public abstract class EnemyMovement : MonoBehaviour
     }
 
     protected abstract void MoveEnemy();
+
+    private void RestoreMovementSpeed()
+    {
+        movementSpeed += movementSpeedRestoration * Time.deltaTime;
+    }
 
     protected void SetVisualDirection(float xMovement)
     {
@@ -53,8 +73,14 @@ public abstract class EnemyMovement : MonoBehaviour
         animator.SetBool("move", false);
     }
 
+    public void SlowMovement(float movementSlowFactor)
+    {
+        movementSpeed = targetMovementSpeed * movementSlowFactor;
+    }
+
     public void SetupMovement(float movementSpeed)
     {
         this.movementSpeed = movementSpeed;
+        targetMovementSpeed = movementSpeed;
     }
 }

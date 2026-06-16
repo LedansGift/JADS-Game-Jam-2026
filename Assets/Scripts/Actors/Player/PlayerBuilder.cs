@@ -24,6 +24,18 @@ public class PlayerBuilder : MonoBehaviour
 
     public Action OnSuccessfulBuild;
 
+    [SerializeField]
+    private SFXObject placeStructureSFX;
+
+    [SerializeField]
+    private SFXObject openBuildMenuSFX;
+
+    [SerializeField]
+    private SFXObject cycleBuildMenuSFX;
+
+    [SerializeField]
+    private SFXObject closeBuildMenuSFX;
+
     public static EventHandler<bool> OnToggleBuildUI;
     public static EventHandler<int> OnNewActiveStructure;
 
@@ -55,9 +67,22 @@ public class PlayerBuilder : MonoBehaviour
             return;
         }
 
+        bool hasStructure = LevelGrid.Instance.HasAnyStructureOnGridPosition(currentGridPosition);
+
         if (activeStructureIndex <= 0)
         {
             //Try remove foundational structure
+
+            if (!hasStructure)
+            {
+                return;
+            }
+
+            Structure structure = LevelGrid.Instance.GetStructureAtGridPosition(
+                currentGridPosition
+            );
+
+            structure.DestroyStructure();
 
             OnSuccessfulBuild?.Invoke();
 
@@ -66,27 +91,36 @@ public class PlayerBuilder : MonoBehaviour
 
         int prefabIndex = activeStructureIndex - 1;
 
+        StructureStats prefabStructureStats = prefabStats[prefabIndex];
+
         if (!StructureAvailabilityManager.Instance.GetStructureAvailability()[prefabIndex])
         {
             return;
         }
 
-        if (LevelGrid.Instance.HasAnyStructureOnGridPosition(currentGridPosition))
+        if (hasStructure)
         {
             return;
         }
 
         if (
             LevelGrid.Instance.IsLanePosition(currentGridPosition)
-            != prefabStats[prefabIndex].laneStructure
+            != prefabStructureStats.laneStructure
         )
         {
             return;
         }
 
-        //If not enough scrap, return
+        if (!ScrapManager.Instance.IsEnoughAvailableScrap(prefabStructureStats.scrapCost))
+        {
+            return;
+        }
 
         PlaceStructure(structurePrefabs[prefabIndex], currentGridPosition);
+
+        ScrapManager.Instance.SpendScrap(prefabStructureStats.scrapCost);
+
+        AudioManager.PlaySFX(placeStructureSFX, transform.position);
 
         OnSuccessfulBuild?.Invoke();
     }
@@ -96,6 +130,7 @@ public class PlayerBuilder : MonoBehaviour
         Vector3 spawnPosition = LevelGrid.Instance.GetWorldPosition(gridPosition);
         Structure newStructure = Instantiate(structure, spawnPosition, Quaternion.identity)
             .GetComponent<Structure>();
+        newStructure.SetStructureGridPosition(gridPosition);
 
         LevelGrid.Instance.AddStructureAtGridPosition(gridPosition, newStructure);
     }
@@ -110,7 +145,16 @@ public class PlayerBuilder : MonoBehaviour
         if (activeStructureIndex > 0)
         {
             activeStructureIndex--;
+            AudioManager.PlaySFX(cycleBuildMenuSFX, transform.position);
             OnNewActiveStructure?.Invoke(this, activeStructureIndex);
+
+            if (activeStructureIndex == 0) { }
+            else
+            {
+                GridMouseVisual.Instance.SetLaneStructureActive(
+                    prefabStats[activeStructureIndex - 1].laneStructure
+                );
+            }
         }
     }
 
@@ -124,15 +168,33 @@ public class PlayerBuilder : MonoBehaviour
         if (activeStructureIndex < structurePrefabs.Length)
         {
             activeStructureIndex++;
+            AudioManager.PlaySFX(cycleBuildMenuSFX, transform.position);
             OnNewActiveStructure?.Invoke(this, activeStructureIndex);
+            GridMouseVisual.Instance.SetLaneStructureActive(
+                prefabStats[activeStructureIndex - 1].laneStructure
+            );
         }
     }
 
     public void ToggleBuildMode(bool toggle)
     {
+        if (buildModeActive == toggle)
+        {
+            return;
+        }
+
         buildModeActive = toggle;
         GridMouseVisual.Instance.ToggleMouseVisibility(toggle);
         OnToggleBuildUI?.Invoke(this, toggle);
+
+        if (buildModeActive)
+        {
+            AudioManager.PlaySFX(openBuildMenuSFX, transform.position);
+        }
+        else
+        {
+            AudioManager.PlaySFX(closeBuildMenuSFX, transform.position);
+        }
     }
 
     public bool IsBuilding()

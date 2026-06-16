@@ -170,9 +170,8 @@ public class InputManager : MonoBehaviour, Controls.IPlayerActions
         disableInputs = false;
     }
 
-    // public void GameEnd(object sender, bool lightsOut)
-    // {
-    //     gameStarted = false;
-    //     disableInputs = true;
-    // }
+    public void GamePause()
+    {
+        disableInputs = true;
+    }
 }

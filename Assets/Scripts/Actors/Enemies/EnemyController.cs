@@ -35,7 +35,7 @@ public class EnemyController : MonoBehaviour
         attacker.SetupAttacker(stats.damage, stats.attackFrequency);
         attacker.OnAttackableStructureNearby += ToggleAttackMode;
 
-        enemyVisual.SetActive(false);
+        //enemyVisual.SetActive(false);
     }
 
     private void OnDisable()
@@ -54,11 +54,12 @@ public class EnemyController : MonoBehaviour
     {
         enemyActive = true;
         animator.SetTrigger("reset");
-        movement.StartMovement();
         attacker.ToggleAttacking(false);
         attacker.ToggleEnemyActive(true);
         health.ReviveEnemy();
-        enemyVisual.SetActive(true);
+        //enemyVisual.SetActive(true);
+
+        movement.StartMovement();
     }
 
     private void DespawnEnemy()

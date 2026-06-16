@@ -67,4 +67,9 @@ public class BuildStructureElement : MonoBehaviour
             structureCost.color = unaffordableColour;
         }
     }
+
+    public void SetScrapCost(int cost)
+    {
+        structureCost.text = cost.ToString();
+    }
 }

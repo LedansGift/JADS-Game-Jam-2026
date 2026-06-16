@@ -1,16 +1,90 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyFreeMovement : MonoBehaviour
+public class EnemyFreeMovement : EnemyMovement
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private float movementRefreshTimer = 0f;
+    private float movementRefreshFrequency = 0.15f;
+    private float structureCheckRadius = 4f;
+    private Vector2 currentMovementValue = Vector2.zero;
+
+    [SerializeField]
+    private MeshRenderer meshRenderer;
+
+    [SerializeField]
+    private LayerMask structureLayermask;
+    private Transform structureTarget;
+    private Transform strongholdTarget;
+
+    private Transform targetTransform;
+
+    protected override void MoveEnemy()
     {
-        
+        if (!targetTransform)
+        {
+            targetTransform = strongholdTarget;
+        }
+
+        Vector2 movementValue = (targetTransform.position - transform.position).normalized;
+        moveRb.MovePosition(
+            moveRb.position
+                + new Vector2(movementValue.x, movementValue.y)
+                    * movementSpeed
+                    * Time.fixedDeltaTime
+        );
+
+        //Debug.Log("Movement: " + movementValue + " Delta Time: " + Time.fixedDeltaTime);
+
+        RefreshMovement(currentMovementValue);
+
+        currentMovementValue = movementValue;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void RefreshMovement(Vector2 movementValue)
     {
-        
+        movementRefreshTimer += Time.fixedDeltaTime;
+
+        if (movementRefreshTimer < movementRefreshFrequency)
+        {
+            return;
+        }
+
+        movementRefreshTimer = 0f;
+
+        meshRenderer.sortingOrder = Mathf.RoundToInt((-transform.position.y) * 100f);
+
+        SetVisualDirection(movementValue.x);
+
+        if (structureTarget)
+        {
+            return;
+        }
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(
+            transform.position,
+            structureCheckRadius,
+            structureLayermask
+        );
+
+        //Debug.Log("Colliders Found: " + colliders.Length);
+
+        foreach (Collider2D collider in colliders)
+        {
+            if (
+                collider.TryGetComponent<StructureHealth>(out StructureHealth hitHealth)
+                && !hitHealth.GetIsLaneStructure()
+                && hitHealth.IsStructureActive()
+            )
+            {
+                structureTarget = hitHealth.transform;
+                break;
+            }
+        }
+    }
+
+    public void SetEnemyRoute(Transform destination)
+    {
+        strongholdTarget = destination;
+        targetTransform = destination;
     }
 }

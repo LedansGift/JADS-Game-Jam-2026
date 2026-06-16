@@ -4,9 +4,9 @@ public class PlayerMovement : MonoBehaviour
 {
     private bool canMove;
 
-    //  private int footstepIndex = 0;
-    // private float footStepTimer = 0f;
-    // private const float TIME_BETWEEN_STEPS = 1.5f;
+    private int footstepIndex = 0;
+    private float footStepTimer = 0f;
+    private const float TIME_BETWEEN_STEPS = 1f;
     private PlayerStats stats;
 
     private InputManager inputManager;
@@ -20,8 +20,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Animator playerAnimator;
 
-    // [SerializeField]
-    // private SFXObject[] footstepSFX;
+    [SerializeField]
+    private SFXObject[] footstepSFX;
 
     private void Awake()
     {
@@ -57,19 +57,15 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAnimator.SetBool("moving", true);
 
-            // footStepTimer += Time.deltaTime;
+            footStepTimer += Time.deltaTime;
 
-            // if (footStepTimer >= (TIME_BETWEEN_STEPS / stats.GetMovementSpeed()))
-            // {
-            //     AudioManager.PlaySFX(
-            //         footstepSFX[footstepIndex],
-            //         transform.position,
-            //         false
-            //     );
-            //     footstepIndex++;
-            //     footstepIndex = footstepIndex % footstepSFX.Length;
-            //     footStepTimer = 0f;
-            // }
+            if (footStepTimer >= (TIME_BETWEEN_STEPS / stats.GetMovementSpeed()))
+            {
+                AudioManager.PlaySFX(footstepSFX[footstepIndex], transform.position);
+                footstepIndex++;
+                footstepIndex = footstepIndex % footstepSFX.Length;
+                footStepTimer = 0f;
+            }
         }
         else
         {
