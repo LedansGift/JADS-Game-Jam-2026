@@ -17,4 +17,3 @@ MonoBehaviour:
   attackRange: 5
   attackFrequency: 1
   scrapCost: 100
-  laneStructure: 1

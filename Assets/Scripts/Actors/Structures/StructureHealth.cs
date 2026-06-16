@@ -5,10 +5,10 @@ using UnityEngine;
 public class StructureHealth : HealthSystem
 {
     private bool structureActive = false;
-    private bool laneStructure = false;
+
     private float health;
     private float maxHealth;
-    private float impulseStrength = 0.1f;
+    private float impulseStrength = 0.5f;
 
     [SerializeField]
     private CinemachineImpulseSource impulseSource;
@@ -59,19 +59,8 @@ public class StructureHealth : HealthSystem
         health = maxHealth;
     }
 
-    public void ActivateStructure(bool laneStructure)
+    public void ActivateStructure()
     {
         structureActive = true;
-        this.laneStructure = laneStructure;
-    }
-
-    public bool IsStructureActive()
-    {
-        return structureActive;
-    }
-
-    public bool GetIsLaneStructure()
-    {
-        return laneStructure;
     }
 }

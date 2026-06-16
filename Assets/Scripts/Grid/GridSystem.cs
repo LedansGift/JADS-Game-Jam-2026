@@ -83,7 +83,7 @@ public class GridSystem<TGridObject>
         return gridObjectArray[gridPosition.x, gridPosition.y];
     }
 
-    private bool CheckIfLaneTile(GridPosition gridPosition)
+    private bool CheckIfTileAccessible(GridPosition gridPosition)
     {
         float tileCheckRadius = .1f;
 
@@ -92,15 +92,20 @@ public class GridSystem<TGridObject>
             tileCheckRadius
         );
 
+        // Collider[] colliderArray = Physics.OverlapSphere(
+        //     new Vector3(gridPosition.x * cellSize, 0, gridPosition.y * cellSize),
+        //     tileCheckRadius
+        // );
+
         foreach (Collider2D collider in blockingColliders)
         {
-            if (collider.gameObject.layer == 8)
+            if (collider.gameObject.layer == 7)
             {
-                return true;
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
 
     //Tests if the tile is within the Grid
@@ -109,13 +114,8 @@ public class GridSystem<TGridObject>
         return gridPosition.x >= 0
             && gridPosition.y >= 0
             && gridPosition.x < width
-            && gridPosition.y < height;
-        //&& CheckIfTileAccessible(gridPosition);
-    }
-
-    public bool IsLanePosition(GridPosition gridPosition)
-    {
-        return CheckIfLaneTile(gridPosition);
+            && gridPosition.y < height
+            && CheckIfTileAccessible(gridPosition);
     }
 
     public int GetWidth() //of the Grid
