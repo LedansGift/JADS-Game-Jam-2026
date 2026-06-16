@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Structure : MonoBehaviour
 {
-    private bool structureActive = false;
     private float buildProgress = 0;
     private float buildFinished = 4;
 
@@ -37,7 +36,7 @@ public class Structure : MonoBehaviour
             Debug.Log("Structure Built");
 
             //Finalise building structure, activate it
-            health.ActivateStructure();
+            health.ActivateStructure(stats.laneStructure);
             structureTempVisual.SetActive(true);
         }
     }
@@ -46,6 +45,7 @@ public class Structure : MonoBehaviour
     {
         //Deactivate attacker, play destroy animation
         //Destroy object
+        Destroy(gameObject);
     }
 
     public bool StructureBuilt()

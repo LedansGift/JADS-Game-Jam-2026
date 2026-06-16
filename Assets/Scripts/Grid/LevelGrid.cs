@@ -18,6 +18,9 @@ public class LevelGrid : MonoBehaviour
     [SerializeField]
     private Vector2 gridOffset;
 
+    // [SerializeField]
+    // private Transform gridDebugVisual;
+
     private GridSystem<GridObject> gridSystem;
 
     private void Awake()
@@ -39,7 +42,7 @@ public class LevelGrid : MonoBehaviour
             (GridSystem<GridObject> g, GridPosition gridPosition) => new GridObject(g, gridPosition)
         );
 
-        //gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
+        //gridSystem.CreateDebugObjects(gridDebugVisual);
     }
 
     //This script is basically for other classes to interact with the GridSystem and to see/manage which tiles units are on
@@ -109,6 +112,9 @@ public class LevelGrid : MonoBehaviour
 
     public bool IsValidGridPosition(GridPosition gridPosition) =>
         gridSystem.IsValidGridPosition(gridPosition);
+
+    public bool IsLanePosition(GridPosition gridPosition) =>
+        gridSystem.IsLanePosition(gridPosition);
 
     public int GetWidth() => gridSystem.GetWidth();
 

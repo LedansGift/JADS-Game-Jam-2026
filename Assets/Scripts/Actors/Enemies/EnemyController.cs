@@ -7,6 +7,10 @@ public class EnemyController : MonoBehaviour
 
     private EnemyHealth health;
     private EnemyMovement movement;
+    private EnemyAttacker attacker;
+
+    [SerializeField]
+    private GameObject enemyVisual;
 
     [SerializeField]
     private EnemyStats stats;
@@ -20,21 +24,25 @@ public class EnemyController : MonoBehaviour
     {
         health = GetComponent<EnemyHealth>();
         movement = GetComponent<EnemyMovement>();
+        attacker = GetComponent<EnemyAttacker>();
+
+        health.OnEnemyDead += DespawnEnemy;
+        health.OnEnemyDamaged += DamageEnemy;
 
         health.SetMaxHealth(stats.maxHealth);
         movement.SetupMovement(stats.movementSpeed);
-    }
 
-    private void OnEnable()
-    {
-        health.OnEnemyDead += DespawnEnemy;
-        health.OnEnemyDamaged += DamageEnemy;
+        attacker.SetupAttacker(stats.damage, stats.attackFrequency);
+        attacker.OnAttackableStructureNearby += ToggleAttackMode;
+
+        enemyVisual.SetActive(false);
     }
 
     private void OnDisable()
     {
         health.OnEnemyDead -= DespawnEnemy;
         health.OnEnemyDamaged -= DamageEnemy;
+        attacker.OnAttackableStructureNearby -= ToggleAttackMode;
     }
 
     private void DamageEnemy()
@@ -47,6 +55,10 @@ public class EnemyController : MonoBehaviour
         enemyActive = true;
         animator.SetTrigger("reset");
         movement.StartMovement();
+        attacker.ToggleAttacking(false);
+        attacker.ToggleEnemyActive(true);
+        health.ReviveEnemy();
+        enemyVisual.SetActive(true);
     }
 
     private void DespawnEnemy()
@@ -54,7 +66,28 @@ public class EnemyController : MonoBehaviour
         enemyActive = false;
         animator.SetTrigger("die");
         movement.StopMovement();
+        attacker.ToggleAttacking(false);
+        attacker.ToggleEnemyActive(false);
 
         OnEnemyDead?.Invoke();
+    }
+
+    private void ToggleAttackMode(object sender, bool attacking)
+    {
+        if (!enemyActive)
+        {
+            return;
+        }
+
+        attacker.ToggleAttacking(attacking);
+
+        if (attacking)
+        {
+            movement.StopMovement();
+        }
+        else
+        {
+            movement.StartMovement();
+        }
     }
 }

@@ -76,6 +76,14 @@ public class PlayerBuilder : MonoBehaviour
             return;
         }
 
+        if (
+            LevelGrid.Instance.IsLanePosition(currentGridPosition)
+            != prefabStats[prefabIndex].laneStructure
+        )
+        {
+            return;
+        }
+
         //If not enough scrap, return
 
         PlaceStructure(structurePrefabs[prefabIndex], currentGridPosition);
