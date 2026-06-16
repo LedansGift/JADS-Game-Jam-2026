@@ -10,7 +10,10 @@ https://opengameart.org/content/50-rpg-sound-effects
 - Q009's Weapon Sounds
 https://opengameart.org/content/q009s-weapon-sounds
 https://opengameart.org/content/11-male-human-paindeath-sounds
-https://fonts.google.com/specimen/Tac+One
+https://opengameart.org/content/spell-sounds-starter-pack
+
+    - Note: This one is CC-BY 3.0 (Credit)
+https://opengameart.org/content/ice-electricity-magic
 
 ======== Font
 - Saira Stencil Font
@@ -21,3 +24,4 @@ https://fonts.google.com/specimen/Stalinist+One
 https://fonts.google.com/specimen/Oxanium
 - Quantico
 https://fonts.google.com/specimen/Quantico
+https://fonts.google.com/specimen/Tac+One

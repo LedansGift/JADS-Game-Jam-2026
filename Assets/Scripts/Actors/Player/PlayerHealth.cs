@@ -53,7 +53,7 @@ public class PlayerHealth : HealthSystem
 
     private void SetMaxHealth()
     {
-        playerManager.GetPlayerStats().GetMaxHealth();
+        health = playerManager.GetPlayerStats().GetMaxHealth();
     }
 
     public override void TakeDamage(float damageAmount)
