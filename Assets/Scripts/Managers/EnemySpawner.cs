@@ -18,10 +18,10 @@ public class EnemySpawner : MonoBehaviour
     private RouteManager routeManager;
 
     [SerializeField]
-    private EnemyController[] fastLaneEnemies;
+    private EnemyController[] fastLanes;
 
     [SerializeField]
-    private EnemyController[] slowLanesEnemies;
+    private EnemyController[] slowLanes;
 
     private void Start()
     {
@@ -38,29 +38,27 @@ public class EnemySpawner : MonoBehaviour
         EnemyController.OnEnemyDead -= ReduceEnemyCount;
     }
 
-    public void SpawnEnemy(EnemyType enemyType, int laneIndex = 0)
+    public void SpawnEnemy(EnemyType enemyType)
     {
-        aliveEnemies++;
-
         switch (enemyType)
         {
             case EnemyType.fastLane:
-                EnemyController fastEnemy = fastLaneEnemies[fastLaneIndex];
+                EnemyController fastEnemy = fastLanes[fastLaneIndex];
                 fastLaneIndex++;
-                if (fastLaneIndex >= fastLaneEnemies.Length)
+                if (fastLaneIndex >= fastLanes.Length)
                 {
                     fastLaneIndex = 0;
                 }
-                SpawnLaneEnemy(fastEnemy, laneIndex);
+                SpawnLaneEnemy(fastEnemy);
                 break;
             case EnemyType.slowLane:
-                EnemyController slowEnemy = slowLanesEnemies[slowLaneIndex];
+                EnemyController slowEnemy = slowLanes[slowLaneIndex];
                 slowLaneIndex++;
-                if (slowLaneIndex >= slowLanesEnemies.Length)
+                if (slowLaneIndex >= slowLanes.Length)
                 {
                     slowLaneIndex = 0;
                 }
-                SpawnLaneEnemy(slowEnemy, laneIndex);
+                SpawnLaneEnemy(slowEnemy);
                 break;
             case EnemyType.roamer:
 
@@ -68,15 +66,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void SpawnLaneEnemy(EnemyController enemy, int laneIndex)
-    {
-        EnemyLaneMovement laneMovement = enemy.GetComponent<EnemyLaneMovement>();
-        LaneRoute route = routeManager.GetLaneRoute(laneIndex);
-
-        laneMovement.SetEnemyRoute(route.GetRouteWaypoints());
-        laneMovement.SpawnEnemyAtLocation(route.GetSpawnPoint().position);
-        enemy.SpawnEnemy();
-    }
+    private void SpawnLaneEnemy(EnemyController enemy) { }
 
     private void SpawnRoamingEnemy(EnemyController enemy) { }
 

@@ -44,13 +44,11 @@ public abstract class EnemyMovement : MonoBehaviour
     public void StartMovement()
     {
         movementActive = true;
-        animator.SetBool("move", true);
     }
 
     public void StopMovement()
     {
         movementActive = false;
-        animator.SetBool("move", false);
     }
 
     public void SetupMovement(float movementSpeed)

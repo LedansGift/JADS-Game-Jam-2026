@@ -36,10 +36,8 @@ public class GridSystem<TGridObject>
 
     public Vector2 GetWorldPosition(GridPosition gridPosition)
     {
-        return new Vector2(
-            (gridPosition.x * cellSize) + gridStartOffset.x,
-            (gridPosition.y * cellSize) + gridStartOffset.y
-        );
+        return new Vector2(gridPosition.x + gridStartOffset.x, gridPosition.y + gridStartOffset.y)
+            * cellSize;
     }
 
     public GridPosition GetGridPosition(Vector2 worldPosition)
@@ -58,24 +56,24 @@ public class GridSystem<TGridObject>
     }
 
     //Makes all the GridDebugObjects to show the GridPosition + current units of all tiles
-    public void CreateDebugObjects(Transform debugPrefab)
-    {
-        for (int x = 0; x < width; x++)
-        {
-            for (int z = 0; z < height; z++)
-            {
-                GridPosition gridPosition = new GridPosition(x, z);
+    // public void CreateDebugObjects(Transform debugPrefab)
+    // {
+    //     for (int x = 0; x < width; x++)
+    //     {
+    //         for (int z = 0; z < height; z++)
+    //         {
+    //             GridPosition gridPosition = new GridPosition(x, z);
 
-                Transform debugTransform = GameObject.Instantiate(
-                    debugPrefab,
-                    GetWorldPosition(gridPosition),
-                    Quaternion.identity
-                );
-                // GridDebugObject gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
-                // gridDebugObject.SetGridObject(GetGridObject(gridPosition));
-            }
-        }
-    }
+    //             Transform debugTransform = GameObject.Instantiate(
+    //                 debugPrefab,
+    //                 GetWorldPosition(gridPosition),
+    //                 Quaternion.identity
+    //             );
+    //             GridDebugObject gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
+    //             gridDebugObject.SetGridObject(GetGridObject(gridPosition));
+    //         }
+    //     }
+    // }
 
     //You can get a specific tile based on its GridPosition
     public TGridObject GetGridObject(GridPosition gridPosition)
