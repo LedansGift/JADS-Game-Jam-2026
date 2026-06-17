@@ -11,6 +11,12 @@ public abstract class StructureAttacker : MonoBehaviour
     protected StructureStats stats;
 
     [SerializeField]
+    protected ParticleSystem attackFX;
+
+    [SerializeField]
+    protected Animator structureAnimator;
+
+    [SerializeField]
     protected LayerMask enemyLayerMask;
 
     private void Update()
@@ -61,12 +67,17 @@ public abstract class StructureAttacker : MonoBehaviour
 
     protected virtual void AttackEnemies(List<EnemyHealth> enemies)
     {
+        structureAnimator.SetTrigger("attack");
+
         foreach (EnemyHealth enemyHealth in enemies)
         {
             enemyHealth.TakeDamage(stats.damage);
         }
 
-        //Debug.Log("Attack");
+        if (attackFX)
+        {
+            attackFX.Play();
+        }
 
         attackTimer = 0f;
         attackReady = false;
@@ -101,6 +112,11 @@ public abstract class StructureAttacker : MonoBehaviour
     public virtual void ToggleAttacker(bool toggle)
     {
         attackerActive = toggle;
+
+        if (toggle)
+        {
+            structureAnimator.SetTrigger("idle");
+        }
     }
 
     public void SetStats(StructureStats stats)

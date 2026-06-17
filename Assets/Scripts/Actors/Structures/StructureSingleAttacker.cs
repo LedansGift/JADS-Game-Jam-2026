@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class StructureSingleAttacker : StructureAttacker
 {
+    [SerializeField]
+    private ParticleSystem ambientParticles;
+
     protected override List<EnemyHealth> PerformEnemyCheck()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(
@@ -49,7 +52,16 @@ public class StructureSingleAttacker : StructureAttacker
             }
         }
 
+        attackFX.transform.position = mostLeftEnemy.transform.position;
+
         List<EnemyHealth> returnHealth = new List<EnemyHealth> { mostLeftEnemy };
         return returnHealth;
+    }
+
+    public override void ToggleAttacker(bool toggle)
+    {
+        base.ToggleAttacker(toggle);
+
+        ambientParticles.Play();
     }
 }

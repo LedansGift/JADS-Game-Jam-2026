@@ -5,7 +5,7 @@ public class ScrapManager : MonoBehaviour
 {
     public static ScrapManager Instance { get; private set; }
 
-    private int startingScrap = 500;
+    private int startingScrap = 750;
 
     private int scrap = 0;
 

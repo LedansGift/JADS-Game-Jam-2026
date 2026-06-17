@@ -6,8 +6,8 @@ public class MusicSource : MonoBehaviour
 
     private bool musicActive = false;
     private float targetVolume = 0f;
-    private float maxVolume = 1f;
-    private float fadeSpeed = 2f;
+    private float maxVolume = 0.3f;
+    private float fadeSpeed = 0.5f;
 
     [SerializeField]
     private AudioSource audioSource;

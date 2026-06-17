@@ -137,6 +137,16 @@ PrefabInstance:
       insertIndex: 2
       addedObject: {fileID: 6136693892194881665}
   m_SourcePrefab: {fileID: 100100000, guid: 78d895a5def8ec64b8fb6df78d878d85, type: 3}
+--- !u!1 &1018511490847671959 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6056422270836724115, guid: 78d895a5def8ec64b8fb6df78d878d85, type: 3}
+  m_PrefabInstance: {fileID: 6498343769163552516}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4200606959963941625 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6946042646795320829, guid: 78d895a5def8ec64b8fb6df78d878d85, type: 3}
+  m_PrefabInstance: {fileID: 6498343769163552516}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4296322300554475861 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7039508181378051665, guid: 78d895a5def8ec64b8fb6df78d878d85, type: 3}
@@ -148,6 +158,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
+--- !u!198 &5334310482650396489 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1164609473555800141, guid: 78d895a5def8ec64b8fb6df78d878d85, type: 3}
+  m_PrefabInstance: {fileID: 6498343769163552516}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5344004432036366376 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1155022181382086444, guid: 78d895a5def8ec64b8fb6df78d878d85, type: 3}
+  m_PrefabInstance: {fileID: 6498343769163552516}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8971179076598400970 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2787383939664007374, guid: 78d895a5def8ec64b8fb6df78d878d85, type: 3}
@@ -166,6 +186,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StructureMineHealth
   isPlayer: 1
+  healthBar: {fileID: 1018511490847671959}
+  healthFill: {fileID: 5344004432036366376}
+  buildFX: {fileID: 5334310482650396489}
+  destroyFX: {fileID: 4200606959963941625}
   structureBuiltSFX: {fileID: 11400000, guid: 618898276d712704981319c889367ff4, type: 2}
   structureDamagedSFX: {fileID: 11400000, guid: f5da610dfe7f7744c95eff8490f3326e, type: 2}
   structureDestroyedSFX: {fileID: 11400000, guid: 43ed64f89a9d7cc428c24c47fade6c1b, type: 2}

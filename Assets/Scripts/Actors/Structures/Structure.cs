@@ -11,7 +11,10 @@ public class Structure : MonoBehaviour
     private StructureHealth health;
 
     [SerializeField]
-    private GameObject structureTempVisual;
+    private SpriteRenderer structureUnfinishedVisual;
+
+    [SerializeField]
+    private SpriteRenderer structureFinishedVisual;
 
     [SerializeField]
     private StructureAttacker attacker;
@@ -24,6 +27,9 @@ public class Structure : MonoBehaviour
         health = GetComponent<StructureHealth>();
         health.SetMaxHealth(stats.maxHealth);
         health.OnStructureDestroyed += DestroyStructure;
+
+        structureUnfinishedVisual.sortingOrder = Mathf.RoundToInt((-transform.position.y) * 100f);
+        structureFinishedVisual.sortingOrder = Mathf.RoundToInt((-transform.position.y) * 100f);
 
         if (attacker)
         {
@@ -40,6 +46,7 @@ public class Structure : MonoBehaviour
     {
         buildProgress++;
         //Debug.Log("Structure hit");
+        health.SetBuildHealthbar(0.25f * buildProgress);
 
         if (StructureBuilt())
         {
@@ -47,7 +54,8 @@ public class Structure : MonoBehaviour
 
             //Finalise building structure, activate it
             health.ActivateStructure(stats.laneStructure);
-            structureTempVisual.SetActive(true);
+            structureUnfinishedVisual.gameObject.SetActive(false);
+            structureFinishedVisual.gameObject.SetActive(true);
 
             if (attacker)
             {
@@ -65,6 +73,9 @@ public class Structure : MonoBehaviour
         {
             attacker.ToggleAttacker(false);
         }
+
+        structureUnfinishedVisual.gameObject.SetActive(true);
+        structureFinishedVisual.gameObject.SetActive(false);
 
         LevelGrid.Instance.RemoveStructureAtGridPosition(gridPosition, this);
 

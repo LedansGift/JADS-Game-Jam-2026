@@ -6,17 +6,19 @@ public class EnemyLaneMovement : EnemyMovement
     private float movementRefreshTimer = 0f;
     private float movementRefreshFrequency = 0.15f;
     private float distanceForRouteUpdate = 0.1f;
+    private float routeRandomVariance = 0.1f;
     private Vector2 currentMovementValue = Vector2.zero;
 
     [SerializeField]
     private MeshRenderer meshRenderer;
 
     private Transform targetTransform;
+    private Vector3 targetPosition;
     private Transform[] route;
 
     protected override void MoveEnemy()
     {
-        Vector2 movementValue = (targetTransform.position - transform.position).normalized;
+        Vector2 movementValue = (targetPosition - transform.position).normalized;
         moveRb.MovePosition(
             moveRb.position
                 + new Vector2(movementValue.x, movementValue.y)
@@ -46,7 +48,7 @@ public class EnemyLaneMovement : EnemyMovement
 
         SetVisualDirection(movementValue.x);
 
-        if (Vector2.Distance(transform.position, targetTransform.position) < distanceForRouteUpdate)
+        if (Vector2.Distance(transform.position, targetPosition) < distanceForRouteUpdate)
         {
             if (routeIndex >= (route.Length - 1))
             {
@@ -55,6 +57,12 @@ public class EnemyLaneMovement : EnemyMovement
 
             routeIndex++;
             targetTransform = route[routeIndex];
+            targetPosition =
+                targetTransform.position
+                + new Vector3(
+                    Random.Range(-routeRandomVariance, routeRandomVariance),
+                    Random.Range(-routeRandomVariance, routeRandomVariance)
+                );
         }
     }
 
@@ -63,5 +71,11 @@ public class EnemyLaneMovement : EnemyMovement
         this.route = route;
         routeIndex = 0;
         targetTransform = route[routeIndex];
+        targetPosition =
+            targetTransform.position
+            + new Vector3(
+                Random.Range(-routeRandomVariance, routeRandomVariance),
+                Random.Range(-routeRandomVariance, routeRandomVariance)
+            );
     }
 }

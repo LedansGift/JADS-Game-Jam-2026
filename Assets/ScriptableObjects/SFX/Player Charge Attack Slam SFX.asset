@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c6912aa69c10544b968b28e0808546e, type: 3}
-  m_Name: Player Charge Attack Powerup 1 SFX
+  m_Name: Player Charge Attack Slam SFX
   m_EditorClassIdentifier: Assembly-CSharp::SFXObject
-  sfxClip: {fileID: 8300000, guid: 74882a719fcad3d469adefe10c477546, type: 3}
-  volume: 1
-  pitch: 1.25
+  sfxClip: {fileID: 8300000, guid: 1af66c4a46f8e2f4aa6e09cd3cadd95f, type: 3}
+  volume: 0.75
+  pitch: 1

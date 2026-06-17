@@ -16,4 +16,4 @@ MonoBehaviour:
   damage: 30
   strongholdDamage: 30
   attackFrequency: 2
-  movementSpeed: 0.3
+  movementSpeed: 0.4

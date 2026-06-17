@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Player Charge Attack Powerup 2 SFX
   m_EditorClassIdentifier: Assembly-CSharp::SFXObject
   sfxClip: {fileID: 8300000, guid: 74882a719fcad3d469adefe10c477546, type: 3}
-  volume: 0.75
+  volume: 1
   pitch: 1.75

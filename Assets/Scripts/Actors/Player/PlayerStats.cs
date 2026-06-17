@@ -28,6 +28,9 @@ public class PlayerStats : MonoBehaviour
     private float attackRange = 2.5f;
 
     [SerializeField]
+    private float maxChargeAttackRange = 3f;
+
+    [SerializeField]
     private float repairRange = 4f;
 
     [SerializeField]
@@ -81,6 +84,11 @@ public class PlayerStats : MonoBehaviour
     public float GetAttackRange()
     {
         return attackRange;
+    }
+
+    public float GetMaxChargeAttackRange()
+    {
+        return maxChargeAttackRange;
     }
 
     public float GetRepairRange()

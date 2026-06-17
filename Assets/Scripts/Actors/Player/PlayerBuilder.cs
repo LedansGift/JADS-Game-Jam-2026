@@ -25,6 +25,9 @@ public class PlayerBuilder : MonoBehaviour
     public Action OnSuccessfulBuild;
 
     [SerializeField]
+    private SFXObject buildDenialSFX;
+
+    [SerializeField]
     private SFXObject placeStructureSFX;
 
     [SerializeField]
@@ -71,8 +74,6 @@ public class PlayerBuilder : MonoBehaviour
 
         if (activeStructureIndex <= 0)
         {
-            //Try remove foundational structure
-
             if (!hasStructure)
             {
                 return;
@@ -95,11 +96,18 @@ public class PlayerBuilder : MonoBehaviour
 
         if (!StructureAvailabilityManager.Instance.GetStructureAvailability()[prefabIndex])
         {
+            AudioManager.PlaySFX(buildDenialSFX, transform.position);
             return;
         }
 
         if (hasStructure)
         {
+            TextBarkManager.SpawnBark(
+                transform.position + new Vector3(0, 1.5f, 0),
+                "Occupied By Another Tower",
+                Color.red
+            );
+            AudioManager.PlaySFX(buildDenialSFX, transform.position);
             return;
         }
 
@@ -108,11 +116,13 @@ public class PlayerBuilder : MonoBehaviour
             != prefabStructureStats.laneStructure
         )
         {
+            AudioManager.PlaySFX(buildDenialSFX, transform.position);
             return;
         }
 
         if (!ScrapManager.Instance.IsEnoughAvailableScrap(prefabStructureStats.scrapCost))
         {
+            AudioManager.PlaySFX(buildDenialSFX, transform.position);
             return;
         }
 

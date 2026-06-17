@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
     private Transform visualTransform;
 
     [SerializeField]
+    private MeshRenderer meshRenderer;
+
+    [SerializeField]
     private Animator playerAnimator;
 
     [SerializeField]
@@ -52,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
         );
 
         //Debug.Log("Movement: " + movementValue + " Delta Time: " + Time.fixedDeltaTime);
+
+        meshRenderer.sortingOrder = Mathf.RoundToInt((-transform.position.y) * 100f);
 
         if (movementValue.sqrMagnitude > 0f)
         {

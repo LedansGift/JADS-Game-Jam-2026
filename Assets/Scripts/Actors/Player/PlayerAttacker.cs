@@ -44,7 +44,7 @@ public class PlayerAttacker : MonoBehaviour
     [SerializeField]
     private SFXObject wrenchConstructSFX;
 
-    private Coroutine attackCoroutine;
+    private Coroutine chargeAttackCoroutine;
 
     public EventHandler<bool> OnPauseMovement;
 
@@ -90,7 +90,7 @@ public class PlayerAttacker : MonoBehaviour
 
         attackHeld = true;
 
-        attackCoroutine = StartCoroutine(WrenchSlash());
+        StartCoroutine(WrenchSlash());
     }
 
     private void WeaponAttackRelease()
@@ -98,6 +98,11 @@ public class PlayerAttacker : MonoBehaviour
         if (!canAttack)
         {
             return;
+        }
+
+        if (chargeAttackCoroutine != null)
+        {
+            StopCoroutine(chargeAttackCoroutine);
         }
 
         attackHeld = false;
@@ -121,7 +126,7 @@ public class PlayerAttacker : MonoBehaviour
 
         playerAnimator.SetTrigger("build");
 
-        attackCoroutine = StartCoroutine(WrenchRepair());
+        StartCoroutine(WrenchRepair());
     }
 
     private IEnumerator WrenchSlash()
@@ -137,6 +142,8 @@ public class PlayerAttacker : MonoBehaviour
             playerAnimator.SetTrigger("chargeAttackReady");
             chargeTime = 0f;
             charging = true;
+
+            chargeAttackCoroutine = StartCoroutine(ChargingEffects());
             yield break;
         }
 
@@ -153,6 +160,15 @@ public class PlayerAttacker : MonoBehaviour
         isBusy = false;
     }
 
+    private IEnumerator ChargingEffects()
+    {
+        yield return new WaitForSeconds(maxChargeDuration / 2f);
+        AudioManager.PlaySFX(wrenchCharge1SFX, transform.position);
+
+        yield return new WaitForSeconds(maxChargeDuration);
+        AudioManager.PlaySFX(wrenchCharge2SFX, transform.position);
+    }
+
     private IEnumerator WrenchChargeSlash()
     {
         chargeTime = Mathf.Min(chargeTime, maxChargeDuration);
@@ -160,6 +176,12 @@ public class PlayerAttacker : MonoBehaviour
         float attackDamage = Mathf.Lerp(
             playerStats.GetMinChargeAttackDamage(),
             playerStats.GetMaxChargeAttackDamage(),
+            chargeTime / maxChargeDuration
+        );
+
+        float attackRange = Mathf.Lerp(
+            playerStats.GetAttackRange(),
+            playerStats.GetMaxChargeAttackRange(),
             chargeTime / maxChargeDuration
         );
 
@@ -174,7 +196,7 @@ public class PlayerAttacker : MonoBehaviour
             playerAnimator.SetTrigger("chargeAttackWeak");
         }
 
-        HitEnemies(attackDamage, playerStats.GetAttackRange());
+        HitEnemies(attackDamage, attackRange);
 
         yield return new WaitForSeconds(
             playerStats.GetAttackSpeed() - attackHitDelay - movementBeginOffset
