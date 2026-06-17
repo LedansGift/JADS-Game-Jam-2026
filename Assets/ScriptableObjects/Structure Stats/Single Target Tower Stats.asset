@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Single Target Tower Stats
   m_EditorClassIdentifier: Assembly-CSharp::StructureStats
   maxHealth: 100
-  damage: 5
+  damage: 30
   attackRange: 2.5
-  attackFrequency: 1
+  attackFrequency: 0.5
   scrapCost: 100
   laneStructure: 0

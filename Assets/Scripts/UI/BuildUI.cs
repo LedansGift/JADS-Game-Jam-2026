@@ -10,7 +10,7 @@ public class BuildUI : MonoBehaviour
     private float groupScrollSpeed = 750f;
 
     private const float STRUCTURE_GROUP_START_X = 100f;
-    private const float STRUCTURE_GROUP_ADVANCEMENT = 110f;
+    private const float STRUCTURE_GROUP_ADVANCEMENT = 100f;
 
     private Vector3 playerOffset = new Vector2(0f, 2f);
 

@@ -19,7 +19,10 @@ public class PlayerStats : MonoBehaviour
     private float attackMaxChargeDamage = 50f;
 
     [SerializeField]
-    private float repairDamage = 20f;
+    private float repairDamage = 25f;
+
+    [SerializeField]
+    private int repairCost = 10;
 
     [SerializeField]
     private float attackRange = 2.5f;
@@ -68,6 +71,11 @@ public class PlayerStats : MonoBehaviour
     public float GetRepairDamage()
     {
         return repairDamage;
+    }
+
+    public int GetRepairCost()
+    {
+        return repairCost;
     }
 
     public float GetAttackRange()

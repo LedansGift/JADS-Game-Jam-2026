@@ -7,6 +7,7 @@ public class EnemyHealth : HealthSystem
 
     private float health;
     private float maxHealth;
+    private float strongHoldDamage;
 
     [SerializeField]
     private SFXObject enemyDamageSFX;
@@ -44,10 +45,16 @@ public class EnemyHealth : HealthSystem
         return enemyActive;
     }
 
-    public void SetMaxHealth(float maxHealth)
+    public void SetMaxHealth(float maxHealth, float strongHoldDamage)
     {
         this.maxHealth = maxHealth;
+        this.strongHoldDamage = strongHoldDamage;
         health = maxHealth;
+    }
+
+    public float GetStrongholdDamage()
+    {
+        return strongHoldDamage;
     }
 
     public void ReviveEnemy()

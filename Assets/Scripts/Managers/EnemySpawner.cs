@@ -11,6 +11,9 @@ public enum EnemyType
 
 public class EnemySpawner : MonoBehaviour
 {
+    private bool spawnerActive = false;
+    private bool spawningStatus = false;
+
     private int fastLaneIndex = 0;
     private int slowLaneIndex = 0;
     private int crusherIndex = 0;
@@ -18,6 +21,9 @@ public class EnemySpawner : MonoBehaviour
     private int aliveEnemies = 0;
 
     private RouteManager routeManager;
+
+    [SerializeField]
+    private GameManager gameManager;
 
     [SerializeField]
     private TrainManager trainManager;
@@ -80,6 +86,7 @@ public class EnemySpawner : MonoBehaviour
                 SpawnRoamingEnemy(crusherEnemy, laneIndex);
                 break;
             case EnemyType.supplyTrain:
+                aliveEnemies--;
                 trainManager.SpawnTrain(laneIndex);
                 break;
         }
@@ -109,5 +116,36 @@ public class EnemySpawner : MonoBehaviour
     private void ReduceEnemyCount()
     {
         aliveEnemies = Mathf.Max(0, aliveEnemies - 1);
+
+        Debug.Log("Alive Enemies: " + aliveEnemies);
+
+        if (!spawningStatus)
+        {
+            TryEndRound();
+        }
+    }
+
+    public void SetSpawnerActive(bool active)
+    {
+        spawnerActive = active;
+    }
+
+    public void SetSpawningStatus(bool status)
+    {
+        spawningStatus = status;
+    }
+
+    public void TryEndRound()
+    {
+        if (!spawnerActive)
+        {
+            return;
+        }
+
+        if (aliveEnemies <= 0)
+        {
+            SetSpawnerActive(false);
+            gameManager.EndRound();
+        }
     }
 }

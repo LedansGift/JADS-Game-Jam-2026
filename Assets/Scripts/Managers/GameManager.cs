@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private bool gameOver = false;
     private int roundIndex = 0;
     private float roundStartDelay = 3f;
 
@@ -20,6 +21,13 @@ public class GameManager : MonoBehaviour
     {
         //Temp debug start
         StartGame();
+
+        CityStronghold.OnGameOver += ToggleGameOver;
+    }
+
+    private void OnDisable()
+    {
+        CityStronghold.OnGameOver -= ToggleGameOver;
     }
 
     private void StartGame()
@@ -38,13 +46,26 @@ public class GameManager : MonoBehaviour
     public void StartNextRound()
     {
         roundIndex++;
+        InputManager.Instance.GameStart();
         OnNewRoundStart?.Invoke(this, roundIndex);
         StartCoroutine(DelayedRoundStart());
     }
 
     public void EndRound()
     {
+        if (gameOver)
+        {
+            return;
+        }
+
         InputManager.Instance.GamePause();
         OnRoundEnd?.Invoke(this, roundIndex);
+    }
+
+    private void ToggleGameOver()
+    {
+        gameOver = true;
+
+        InputManager.Instance.GamePause();
     }
 }

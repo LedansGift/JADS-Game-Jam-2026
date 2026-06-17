@@ -26,6 +26,9 @@ public class TrainMovement : MonoBehaviour
     [SerializeField]
     private Transform endPoint;
 
+    [SerializeField]
+    private SFXObject trainWhistleSFX;
+
     private void Start()
     {
         playerTransform = PlayerIdentifier.PlayerTransform;
@@ -92,12 +95,10 @@ public class TrainMovement : MonoBehaviour
     {
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
 
-        Debug.Log(distanceToPlayer);
+        //Debug.Log(distanceToPlayer);
 
         if (distanceToPlayer <= scrapCollectionDistance)
         {
-            //Play scrap collection effect
-
             ScrapManager.Instance.AddScrap(scrapPerCollection);
         }
     }
@@ -114,10 +115,12 @@ public class TrainMovement : MonoBehaviour
             return;
         }
 
-        this.trainTime = trainSpeed;
+        trainTime = trainSpeed;
 
         movementGoal = endPoint;
         transform.position = startPoint.position;
         isTrainActive = true;
+
+        AudioManager.PlaySFX(trainWhistleSFX, transform.position);
     }
 }

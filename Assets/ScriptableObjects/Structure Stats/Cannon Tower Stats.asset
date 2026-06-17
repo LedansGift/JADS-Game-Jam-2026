@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cannon Tower Stats
   m_EditorClassIdentifier: Assembly-CSharp::StructureStats
   maxHealth: 150
-  damage: 75
+  damage: 85
   attackRange: 10
   attackFrequency: 5
   scrapCost: 250

@@ -39,11 +39,11 @@ public class Structure : MonoBehaviour
     public void BuildStructure()
     {
         buildProgress++;
-        Debug.Log("Structure hit");
+        //Debug.Log("Structure hit");
 
         if (StructureBuilt())
         {
-            Debug.Log("Structure Built");
+            //Debug.Log("Structure Built");
 
             //Finalise building structure, activate it
             health.ActivateStructure(stats.laneStructure);

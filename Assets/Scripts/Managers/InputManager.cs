@@ -172,6 +172,7 @@ public class InputManager : MonoBehaviour, Controls.IPlayerActions
 
     public void GamePause()
     {
+        gameStarted = false;
         disableInputs = true;
     }
 }

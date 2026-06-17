@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   enemyVisual: {fileID: 5182652292953357396}
-  stats: {fileID: 11400000, guid: 345627973ecfcf64d9126317c74c63cb, type: 2}
+  stats: {fileID: 11400000, guid: e68b6da31f15c454d82772423789428d, type: 2}
   animator: {fileID: 2028073975143767937}
 --- !u!114 &4096303838736551685
 MonoBehaviour:
@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttacker
   laneAttacker: 1
   animator: {fileID: 2028073975143767937}
+  enemyAttackSFX: {fileID: 11400000, guid: df2e97571631d0d4da0c6ec97f77ebdc, type: 2}
   structureMask:
     serializedVersion: 2
     m_Bits: 128

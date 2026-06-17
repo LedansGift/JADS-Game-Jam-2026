@@ -13,7 +13,16 @@ public class AudioManager : MonoBehaviour
     private static int sfxPoolCounter = 0;
 
     [SerializeField]
-    private AudioSource musicAudioSource;
+    private AudioClip menuTrack;
+
+    [SerializeField]
+    private AudioClip[] levelTracks;
+
+    [SerializeField]
+    private MusicSource levelAudioSource;
+
+    [SerializeField]
+    private MusicSource intermissionAudioSource;
 
     [SerializeField]
     private AudioMixer volumeMixer;
@@ -28,6 +37,9 @@ public class AudioManager : MonoBehaviour
         OptionsUI.OnMusicVolumeUpdated += UpdateMusicVolume;
         OptionsUI.OnSFXVolumeUpdated += UpdateSFXVolume;
 
+        GameManager.OnNewRoundStart += PlayLevelTrack;
+        GameManager.OnRoundEnd += PlayIntermissionTrack;
+
         sfxPool = localSfxPool;
         sfxPoolCounter = 0;
     }
@@ -37,6 +49,9 @@ public class AudioManager : MonoBehaviour
         OptionsUI.OnMasterVolumeUpdated -= UpdateMasterVolume;
         OptionsUI.OnMusicVolumeUpdated -= UpdateMusicVolume;
         OptionsUI.OnSFXVolumeUpdated -= UpdateSFXVolume;
+
+        GameManager.OnNewRoundStart -= PlayLevelTrack;
+        GameManager.OnRoundEnd -= PlayIntermissionTrack;
     }
 
     private void Start()
@@ -44,6 +59,9 @@ public class AudioManager : MonoBehaviour
         UpdateMasterVolume(this, PlayerOptions.GetMasterVolume());
         UpdateMusicVolume(this, PlayerOptions.GetMusicVolume());
         UpdateSFXVolume(this, PlayerOptions.GetSFXVolume());
+
+        intermissionAudioSource.SetMusicTrack(menuTrack);
+        intermissionAudioSource.StartMusic();
     }
 
     private static AudioSource PlaySFXClip(
@@ -119,5 +137,24 @@ public class AudioManager : MonoBehaviour
             "sfx",
             Mathf.Log10(Mathf.Clamp(newVolume, logMinThreshold, 1f)) * logMult
         );
+    }
+
+    public void PlayIntermissionTrack(object sender, int index)
+    {
+        levelAudioSource.StopMusic();
+        intermissionAudioSource.StartMusic();
+    }
+
+    public void PlayLevelTrack(object sender, int roundIndex)
+    {
+        if (roundIndex >= levelTracks.Length)
+        {
+            roundIndex = levelTracks.Length - 1;
+        }
+
+        levelAudioSource.SetMusicTrack(levelTracks[roundIndex]);
+
+        levelAudioSource.StartMusic();
+        intermissionAudioSource.StopMusic();
     }
 }

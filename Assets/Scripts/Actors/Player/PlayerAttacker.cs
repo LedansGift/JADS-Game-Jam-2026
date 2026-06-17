@@ -30,6 +30,15 @@ public class PlayerAttacker : MonoBehaviour
     private SFXObject wrenchSwingSFX;
 
     [SerializeField]
+    private SFXObject wrenchCharge1SFX;
+
+    [SerializeField]
+    private SFXObject wrenchCharge2SFX;
+
+    [SerializeField]
+    private SFXObject wrenchChargeSlamSFX;
+
+    [SerializeField]
     private SFXObject wrenchRepairSFX;
 
     [SerializeField]
@@ -63,6 +72,8 @@ public class PlayerAttacker : MonoBehaviour
         if (charging)
         {
             chargeTime += Time.deltaTime;
+
+            //play sfx and spawn particles at 2 charge levels
         }
     }
 
@@ -155,9 +166,11 @@ public class PlayerAttacker : MonoBehaviour
         if (chargeTime >= maxChargeDuration)
         {
             playerAnimator.SetTrigger("chargeAttackStrong");
+            AudioManager.PlaySFX(wrenchChargeSlamSFX, transform.position);
         }
         else
         {
+            AudioManager.PlaySFX(wrenchSwingSFX, transform.position);
             playerAnimator.SetTrigger("chargeAttackWeak");
         }
 
@@ -246,10 +259,19 @@ public class PlayerAttacker : MonoBehaviour
 
             if (!structureHealth.IsMaxHealth())
             {
-                structureHealth.HealDamage(repairAmount);
-                // Use up scrap
+                if (ScrapManager.Instance.IsEnoughAvailableScrap(playerStats.GetRepairCost()))
+                {
+                    ScrapManager.Instance.SpendScrap(playerStats.GetRepairCost());
+                    structureHealth.HealDamage(repairAmount);
+                    // Use up scrap
 
-                AudioManager.PlaySFX(wrenchRepairSFX, transform.position);
+                    AudioManager.PlaySFX(wrenchRepairSFX, transform.position);
+                }
+                else
+                {
+                    //No scrap UI
+                }
+
                 break;
             }
         }

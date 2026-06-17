@@ -5,7 +5,7 @@ public class EnemyFreeMovement : EnemyMovement
 {
     private float movementRefreshTimer = 0f;
     private float movementRefreshFrequency = 0.15f;
-    private float structureCheckRadius = 4f;
+    private float structureCheckRadius = 3f;
     private Vector2 currentMovementValue = Vector2.zero;
 
     [SerializeField]
@@ -68,6 +68,8 @@ public class EnemyFreeMovement : EnemyMovement
 
         //Debug.Log("Colliders Found: " + colliders.Length);
 
+        Debug.Log("Nearby structures: " + colliders.Length);
+
         foreach (Collider2D collider in colliders)
         {
             if (
@@ -76,7 +78,10 @@ public class EnemyFreeMovement : EnemyMovement
                 && hitHealth.IsStructureActive()
             )
             {
+                Debug.Log("Structure found: ");
+
                 structureTarget = hitHealth.transform;
+                targetTransform = hitHealth.transform;
                 break;
             }
         }

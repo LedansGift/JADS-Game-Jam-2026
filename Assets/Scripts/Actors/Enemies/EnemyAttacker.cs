@@ -30,6 +30,9 @@ public class EnemyAttacker : MonoBehaviour
     private Animator animator;
 
     [SerializeField]
+    private SFXObject enemyAttackSFX;
+
+    [SerializeField]
     private LayerMask structureMask;
 
     private void Update()
@@ -108,6 +111,8 @@ public class EnemyAttacker : MonoBehaviour
     private IEnumerator DealDamageToStructure()
     {
         animator.SetTrigger("attack");
+
+        AudioManager.PlaySFX(enemyAttackSFX, transform.position);
 
         yield return new WaitForSeconds(attackDelay);
 

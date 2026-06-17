@@ -9,6 +9,12 @@ public class ScrapManager : MonoBehaviour
 
     private int scrap = 0;
 
+    [SerializeField]
+    private SFXObject scrapGetSFX;
+
+    [SerializeField]
+    private SFXObject scrapSpendSFX;
+
     public static EventHandler<int> OnNewScrap;
 
     private void Awake()
@@ -44,12 +50,15 @@ public class ScrapManager : MonoBehaviour
     public void AddScrap(int newScrap)
     {
         scrap += newScrap;
+        AudioManager.PlaySFX(scrapGetSFX, transform.position);
+
         UpdateScrapAmount();
     }
 
     public void SpendScrap(int spentScrap)
     {
         scrap -= spentScrap;
+        AudioManager.PlaySFX(scrapSpendSFX, transform.position);
         UpdateScrapAmount();
     }
 }

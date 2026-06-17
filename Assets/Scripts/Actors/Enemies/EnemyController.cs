@@ -29,7 +29,7 @@ public class EnemyController : MonoBehaviour
         health.OnEnemyDead += DespawnEnemy;
         health.OnEnemyDamaged += DamageEnemy;
 
-        health.SetMaxHealth(stats.maxHealth);
+        health.SetMaxHealth(stats.maxHealth, stats.strongholdDamage);
         movement.SetupMovement(stats.movementSpeed);
 
         attacker.SetupAttacker(stats.damage, stats.attackFrequency);

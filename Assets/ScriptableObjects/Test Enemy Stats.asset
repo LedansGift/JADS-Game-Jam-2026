@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   maxHealth: 100
   damage: 10
+  strongholdDamage: 10
   attackFrequency: 1
   movementSpeed: 1

@@ -24,12 +24,15 @@ public class PlayerManager : MonoBehaviour
 
         playerBuilder.OnSuccessfulBuild += CloseBuildMenu;
         playerAttacker.OnPauseMovement += ToggleAttackStop;
+
+        GameManager.OnNewRoundStart += ActivatePlayer;
+        GameManager.OnRoundEnd += DeactivatePlayer;
     }
 
     private void Start()
     {
         //Temp for testing
-        TogglePlayer(true);
+        //TogglePlayer(true);
 
         InputManager.Instance.OnBuildEvent += ToggleBuilding;
     }
@@ -39,6 +42,9 @@ public class PlayerManager : MonoBehaviour
         InputManager.Instance.OnBuildEvent -= ToggleBuilding;
         playerBuilder.OnSuccessfulBuild -= CloseBuildMenu;
         playerAttacker.OnPauseMovement -= ToggleAttackStop;
+
+        GameManager.OnNewRoundStart += ActivatePlayer;
+        GameManager.OnRoundEnd += DeactivatePlayer;
     }
 
     private void ToggleBuilding()
@@ -101,5 +107,17 @@ public class PlayerManager : MonoBehaviour
     public PlayerStats GetPlayerStats()
     {
         return playerStats;
+    }
+
+    private void ActivatePlayer(object sender, int e)
+    {
+        Debug.Log("Player Start");
+
+        TogglePlayer(true);
+    }
+
+    private void DeactivatePlayer(object sender, int e)
+    {
+        TogglePlayer(false);
     }
 }

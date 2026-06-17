@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    private float timeBetweenSpawns = 0.2f;
+    private float timeBetweenSpawns = 0.3f;
 
     [SerializeField]
     private EnemySpawner enemySpawner;
 
-    public Action OnWavesFinishedSpawning;
+    //public Action OnWavesFinishedSpawning;
 
     private IEnumerator EnemySpawnCoroutine(EnemyWave enemyWave)
     {
@@ -37,13 +37,17 @@ public class WaveManager : MonoBehaviour
         }
         else
         {
-            yield return null;
-            OnWavesFinishedSpawning?.Invoke();
+            yield return new WaitForSeconds(0.5f);
+            enemySpawner.SetSpawningStatus(false);
+            enemySpawner.TryEndRound();
         }
     }
 
     public void StartRound(RoundWaves roundWaves)
     {
+        enemySpawner.SetSpawningStatus(true);
+        enemySpawner.SetSpawnerActive(true);
+
         StartCoroutine(WaveCoroutine(roundWaves, 0));
     }
 }

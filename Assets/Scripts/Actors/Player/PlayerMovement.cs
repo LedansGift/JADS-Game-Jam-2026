@@ -87,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
     public void ToggleCanMove(bool enable)
     {
         canMove = enable;
+        playerAnimator.SetBool("moving", false);
     }
 
     // private void OnPlayerDead(object sender, bool playerDead)

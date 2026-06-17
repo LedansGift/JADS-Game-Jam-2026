@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TrainManager : MonoBehaviour
 {
-    private float trainSpeed = 5f;
+    private float trainSpeed = 3.5f;
 
     [SerializeField]
     private TrainMovement northTrain;
