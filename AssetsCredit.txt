@@ -13,6 +13,10 @@ https://opengameart.org/content/11-male-human-paindeath-sounds
 https://opengameart.org/content/spell-sounds-starter-pack
 https://opengameart.org/content/100-cc0-sfx
 error sound - u_31vnwfmzt6 (Pixabay)
+train passing - audiopapkin (Pixabay)
+rock-destroy - freesound_community (Pixabay)
+train-horn-fading - freesound_community (Pixabay)
+metal-hit - floraphonic (Pixabay)
 
     - Note: This one is CC-BY 3.0 (Credit)
 https://opengameart.org/content/ice-electricity-magic
@@ -27,3 +31,5 @@ https://fonts.google.com/specimen/Oxanium
 - Quantico
 https://fonts.google.com/specimen/Quantico
 https://fonts.google.com/specimen/Tac+One
+https://fonts.google.com/specimen/Ojuju
+https://fonts.google.com/specimen/Tangerine

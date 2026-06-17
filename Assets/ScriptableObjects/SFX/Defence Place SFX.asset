@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6912aa69c10544b968b28e0808546e, type: 3}
   m_Name: Defence Place SFX
   m_EditorClassIdentifier: Assembly-CSharp::SFXObject
-  sfxClip: {fileID: 8300000, guid: 370ee8c3a4a4ea8fbad5f38bb200f33e, type: 3}
+  sfxClip: {fileID: 8300000, guid: 19d1f4319c0ff94f08f853604aa51819, type: 3}
   volume: 1
   pitch: 1

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6912aa69c10544b968b28e0808546e, type: 3}
   m_Name: Player Attack SFX
   m_EditorClassIdentifier: Assembly-CSharp::SFXObject
-  sfxClip: {fileID: 8300000, guid: 085ee22420d9f793a8e1b88320c455d3, type: 3}
+  sfxClip: {fileID: 0}
   volume: 1
   pitch: 1
