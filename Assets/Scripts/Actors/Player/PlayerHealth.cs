@@ -7,7 +7,6 @@ public class PlayerHealth : HealthSystem
     private bool invincible = false;
     private float health;
     private float invincibilityDuration = 2f;
-    private float impulseStrength = 1f;
     private PlayerManager playerManager;
 
     [SerializeField]
@@ -18,9 +17,6 @@ public class PlayerHealth : HealthSystem
 
     [SerializeField]
     private SFXObject playerDeathSFX;
-
-    [SerializeField]
-    private CinemachineImpulseSource impulseSource;
 
     private void Start()
     {
@@ -62,8 +58,6 @@ public class PlayerHealth : HealthSystem
         {
             return;
         }
-
-        impulseSource.GenerateImpulse(impulseStrength);
 
         health = Mathf.Max(0f, health - damageAmount);
 

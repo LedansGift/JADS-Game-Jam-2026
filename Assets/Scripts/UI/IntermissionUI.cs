@@ -5,11 +5,25 @@ using UnityEngine;
 
 public class IntermissionUI : MonoBehaviour
 {
+    private int currentRoundIndex = 0;
     private int structureChosen = -1;
+
+    private int blueprintLossStartRound = 1;
+
+    [SerializeField]
     private GameManager gameManager;
 
     [SerializeField]
     private CanvasGroupFader fader;
+
+    [SerializeField]
+    private GameObject blueprintLossMenu;
+
+    [SerializeField]
+    private GameObject pickBluePrintAlert;
+
+    [SerializeField]
+    private GameObject initialLetter;
 
     [SerializeField]
     private GameObject[] roundEndLetters;
@@ -17,12 +31,17 @@ public class IntermissionUI : MonoBehaviour
     [SerializeField]
     private StructureButton[] structureButtons;
 
+    [SerializeField]
+    private SFXObject buttonClickSFX;
+
     private void Start()
     {
         GameManager.OnRoundEnd += RoundEndIntermission;
 
-        fader.SetCanvasGroupAlpha(0f);
-        fader.ToggleBlockRaycasts(false);
+        fader.SetCanvasGroupAlpha(1f);
+        fader.ToggleBlockRaycasts(true);
+        blueprintLossMenu.SetActive(false);
+        pickBluePrintAlert.SetActive(false);
     }
 
     private void OnDisable()
@@ -40,6 +59,8 @@ public class IntermissionUI : MonoBehaviour
 
     private void DisableAllLeters()
     {
+        initialLetter.SetActive(false);
+
         foreach (GameObject letter in roundEndLetters)
         {
             letter.SetActive(false);
@@ -48,17 +69,33 @@ public class IntermissionUI : MonoBehaviour
 
     private void RoundEndIntermission(object sender, int roundIndex)
     {
-        if (!gameManager)
-        {
-            gameManager = sender as GameManager;
-        }
+        // if (!gameManager)
+        // {
+        //     gameManager = sender as GameManager;
+        // }
 
         structureChosen = -1;
+        currentRoundIndex = roundIndex;
 
-        if (roundIndex < roundEndLetters.Length)
+        DisableAllLeters();
+
+        if (currentRoundIndex >= roundEndLetters.Length)
         {
-            roundEndLetters[roundIndex].SetActive(true);
+            return;
         }
+
+        roundEndLetters[roundIndex].SetActive(true);
+
+        StartCoroutine(DisplayIntermissionMenu());
+
+        if (roundIndex < blueprintLossStartRound)
+        {
+            return;
+        }
+
+        pickBluePrintAlert.SetActive(false);
+
+        blueprintLossMenu.SetActive(true);
 
         DeselectAllStructures();
 
@@ -69,8 +106,6 @@ public class IntermissionUI : MonoBehaviour
         {
             structureButtons[i].SetStructureAvailability(currentStructureAvailability[i]);
         }
-
-        StartCoroutine(DisplayIntermissionMenu());
     }
 
     private IEnumerator DisplayIntermissionMenu()
@@ -104,9 +139,12 @@ public class IntermissionUI : MonoBehaviour
 
     public void TryFinishIntermission()
     {
-        if (structureChosen < 0)
+        AudioManager.PlaySFX(buttonClickSFX, transform.position);
+        if ((currentRoundIndex >= blueprintLossStartRound) && (structureChosen < 0))
         {
             //Display "You must pick a Blueprint" graphic
+            pickBluePrintAlert.SetActive(true);
+
             return;
         }
 

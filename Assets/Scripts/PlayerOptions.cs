@@ -6,7 +6,7 @@ public class PlayerOptions
     private const string MUSIC_VOLUME = "MusicVolume";
     private const string SFX_VOLUME = "SFXVolume";
 
-    private static float MASTER_VOLUME_DEF = 0.5f;
+    private static float MASTER_VOLUME_DEF = 1f;
     private static float MUSIC_VOLUME_DEF = 0.5f;
     private static float SFX_VOLUME_DEF = 0.5f;
 

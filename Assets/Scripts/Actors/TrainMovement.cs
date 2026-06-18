@@ -27,6 +27,9 @@ public class TrainMovement : MonoBehaviour
     private Transform endPoint;
 
     [SerializeField]
+    private ParticleSystem scrapDropFX;
+
+    [SerializeField]
     private SFXObject trainWhistleSFX;
 
     private void Start()
@@ -96,6 +99,8 @@ public class TrainMovement : MonoBehaviour
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
 
         //Debug.Log(distanceToPlayer);
+
+        scrapDropFX.Play();
 
         if (distanceToPlayer <= scrapCollectionDistance)
         {

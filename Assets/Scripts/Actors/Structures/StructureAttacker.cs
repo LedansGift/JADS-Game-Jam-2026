@@ -14,12 +14,15 @@ public abstract class StructureAttacker : MonoBehaviour
     protected ParticleSystem attackFX;
 
     [SerializeField]
+    protected SFXObject attackSFX;
+
+    [SerializeField]
     protected Animator structureAnimator;
 
     [SerializeField]
     protected LayerMask enemyLayerMask;
 
-    private void Update()
+    protected virtual void Update()
     {
         if (!attackerActive)
         {
@@ -77,6 +80,11 @@ public abstract class StructureAttacker : MonoBehaviour
         if (attackFX)
         {
             attackFX.Play();
+        }
+
+        if (attackSFX)
+        {
+            AudioManager.PlaySFX(attackSFX, transform.position);
         }
 
         attackTimer = 0f;

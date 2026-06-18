@@ -98,6 +98,8 @@ public class StructureHealth : HealthSystem
 
         health = Mathf.Min(maxHealth, health + healAmount);
 
+        healthFill.localScale = new Vector3(1f, health / maxHealth, 1f);
+
         if (health >= maxHealth)
         {
             healthBar.SetActive(false);

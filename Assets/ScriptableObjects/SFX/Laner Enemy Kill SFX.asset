@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Laner Enemy Kill SFX
   m_EditorClassIdentifier: Assembly-CSharp::SFXObject
   sfxClip: {fileID: 8300000, guid: fac1b5a762e783c499c2c7d7e1b60b9e, type: 3}
-  volume: 0.2
+  volume: 0.25
   pitch: 1.4

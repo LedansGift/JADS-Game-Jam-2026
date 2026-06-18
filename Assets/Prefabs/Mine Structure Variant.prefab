@@ -192,7 +192,7 @@ MonoBehaviour:
   destroyFX: {fileID: 4200606959963941625}
   structureBuiltSFX: {fileID: 11400000, guid: 618898276d712704981319c889367ff4, type: 2}
   structureDamagedSFX: {fileID: 11400000, guid: f5da610dfe7f7744c95eff8490f3326e, type: 2}
-  structureDestroyedSFX: {fileID: 11400000, guid: 43ed64f89a9d7cc428c24c47fade6c1b, type: 2}
+  structureDestroyedSFX: {fileID: 11400000, guid: 7b382b48e3a53da4e86096cf391709f1, type: 2}
   impulseSource: {fileID: 4296322300554475861}
   enemyLayerMask:
     serializedVersion: 2

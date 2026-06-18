@@ -5043,6 +5043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StructureSlowingAttacker
   attackFX: {fileID: 4664667671317044927}
+  attackSFX: {fileID: 11400000, guid: 3d322346ba6b6a04d935368186b0efc7, type: 2}
   structureAnimator: {fileID: 6495744990879780433}
   enemyLayerMask:
     serializedVersion: 2

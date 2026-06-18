@@ -14,26 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoundWaves
   enemyWaves:
   - enemyType: 0
-    enemyNumber: 4
+    enemyNumber: 6
     spawnRoute: 0
+    timeBetweenSpawns: 1
     delayToNextWave: 5
   - enemyType: 0
     enemyNumber: 4
     spawnRoute: 1
+    timeBetweenSpawns: 0.5
     delayToNextWave: 0.25
   - enemyType: 3
     enemyNumber: 1
     spawnRoute: 0
+    timeBetweenSpawns: 0.5
     delayToNextWave: 0
   - enemyType: 1
     enemyNumber: 2
     spawnRoute: 2
+    timeBetweenSpawns: 2
     delayToNextWave: 4
   - enemyType: 2
     enemyNumber: 1
     spawnRoute: 2
-    delayToNextWave: 2
+    timeBetweenSpawns: 3
+    delayToNextWave: 5
   - enemyType: 2
     enemyNumber: 1
     spawnRoute: 1
+    timeBetweenSpawns: 0.5
     delayToNextWave: 0

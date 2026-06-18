@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Crusher Attack SFX
   m_EditorClassIdentifier: Assembly-CSharp::SFXObject
   sfxClip: {fileID: 8300000, guid: 45a4b97afea8dd3469bd928f8d000eec, type: 3}
-  volume: 0.25
+  volume: 0.35
   pitch: 1

@@ -1,4 +1,5 @@
 using System;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class CityStronghold : MonoBehaviour
@@ -10,6 +11,15 @@ public class CityStronghold : MonoBehaviour
 
     [SerializeField]
     private Transform healthBar;
+
+    [SerializeField]
+    private ParticleSystem damageFX;
+
+    [SerializeField]
+    private CinemachineImpulseSource damageImpulse;
+
+    [SerializeField]
+    private SFXObject damageSFX;
 
     public static Action OnGameOver;
 
@@ -40,9 +50,14 @@ public class CityStronghold : MonoBehaviour
 
         healthBar.localScale = new Vector3(1f, strongholdHealth / strongholdMaxHealth, 1f);
 
-        Debug.Log("Stronghold damaged. Health remaining: " + strongholdHealth);
+        //Debug.Log("Stronghold damaged. Health remaining: " + strongholdHealth);
 
         //Play damage fx
+        damageFX.Play();
+
+        AudioManager.PlaySFX(damageSFX, transform.position);
+
+        damageImpulse.GenerateImpulse();
 
         if (strongholdHealth <= 0f)
         {

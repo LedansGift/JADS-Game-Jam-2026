@@ -9,5 +9,6 @@ public class EnemyWave
 
     [Range(0, 2)]
     public int spawnRoute;
+    public float timeBetweenSpawns = 0.5f;
     public float delayToNextWave;
 }

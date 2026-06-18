@@ -5,7 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private bool gameOver = false;
-    private int roundIndex = 0;
+    private int roundIndex = -1;
+    private int winRoundIndex = 5;
     private float roundStartDelay = 3f;
 
     [SerializeField]
@@ -16,11 +17,12 @@ public class GameManager : MonoBehaviour
 
     public static EventHandler<int> OnNewRoundStart;
     public static EventHandler<int> OnRoundEnd;
+    public static Action OnGameWin;
 
     void Start()
     {
         //Temp debug start
-        StartGame();
+        //StartGame();
 
         CityStronghold.OnGameOver += ToggleGameOver;
     }
@@ -30,12 +32,12 @@ public class GameManager : MonoBehaviour
         CityStronghold.OnGameOver -= ToggleGameOver;
     }
 
-    private void StartGame()
-    {
-        InputManager.Instance.GameStart();
-        OnNewRoundStart?.Invoke(this, roundIndex);
-        StartCoroutine(DelayedRoundStart());
-    }
+    // private void StartGame()
+    // {
+    //     InputManager.Instance.GameStart();
+    //     OnNewRoundStart?.Invoke(this, roundIndex);
+    //     StartCoroutine(DelayedRoundStart());
+    // }
 
     private IEnumerator DelayedRoundStart()
     {
@@ -60,6 +62,12 @@ public class GameManager : MonoBehaviour
 
         InputManager.Instance.GamePause();
         OnRoundEnd?.Invoke(this, roundIndex);
+
+        if (roundIndex >= winRoundIndex)
+        {
+            OnGameWin?.Invoke();
+            return;
+        }
     }
 
     private void ToggleGameOver()

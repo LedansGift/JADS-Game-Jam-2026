@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Footsteps 1 SFX
   m_EditorClassIdentifier: Assembly-CSharp::SFXObject
   sfxClip: {fileID: 8300000, guid: d000d87d40aa8ae58b8b33298e2210dc, type: 3}
-  volume: 0.15
+  volume: 0.25
   pitch: 1.25

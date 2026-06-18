@@ -37,6 +37,11 @@ public class StructureAvailabilityManager : MonoBehaviour
 
     public void SetStructureAvailability(int strucIndex, bool available)
     {
+        if ((strucIndex < 0) || (strucIndex >= structureAvailability.Count))
+        {
+            return;
+        }
+
         structureAvailability[strucIndex] = available;
     }
 }

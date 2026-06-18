@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    private float timeBetweenSpawns = 0.3f;
-
     [SerializeField]
     private EnemySpawner enemySpawner;
 
@@ -17,7 +15,7 @@ public class WaveManager : MonoBehaviour
         {
             enemySpawner.SpawnEnemy(enemyWave.enemyType, enemyWave.spawnRoute);
 
-            yield return new WaitForSeconds(timeBetweenSpawns);
+            yield return new WaitForSeconds(enemyWave.timeBetweenSpawns);
         }
     }
 

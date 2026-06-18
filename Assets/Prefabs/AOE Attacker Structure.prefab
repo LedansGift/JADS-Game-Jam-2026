@@ -5053,6 +5053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StructureAOEAttacker
   attackFX: {fileID: 8084280707429488772}
+  attackSFX: {fileID: 11400000, guid: 0c2a8a184e1fa0d4b992a3fdbbe6a968, type: 2}
   structureAnimator: {fileID: 2091073657460181176}
   enemyLayerMask:
     serializedVersion: 2

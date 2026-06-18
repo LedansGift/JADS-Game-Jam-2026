@@ -16,4 +16,5 @@ MonoBehaviour:
   - enemyType: 0
     enemyNumber: 4
     spawnRoute: 0
+    timeBetweenSpawns: 1
     delayToNextWave: 0

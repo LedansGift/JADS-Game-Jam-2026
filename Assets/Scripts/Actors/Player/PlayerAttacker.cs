@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerAttacker : MonoBehaviour
@@ -11,7 +13,7 @@ public class PlayerAttacker : MonoBehaviour
     private bool canAttack = false;
 
     private float chargeTime = 0f;
-    private float maxChargeDuration = 3f;
+    private float maxChargeDuration = 2f;
 
     private float attackHitDelay = 0.15f;
     private float movementBeginOffset = 0.25f;
@@ -19,6 +21,18 @@ public class PlayerAttacker : MonoBehaviour
 
     [SerializeField]
     private Transform attackTransform;
+
+    [SerializeField]
+    private ParticleSystem tarFX;
+
+    [SerializeField]
+    private ParticleSystem chargeLvl1FX;
+
+    [SerializeField]
+    private ParticleSystem chargeLvl2FX;
+
+    [SerializeField]
+    private ParticleSystem chargeSlamFX;
 
     [SerializeField]
     private Animator playerAnimator;
@@ -43,6 +57,9 @@ public class PlayerAttacker : MonoBehaviour
 
     [SerializeField]
     private SFXObject wrenchConstructSFX;
+
+    [SerializeField]
+    private CinemachineImpulseSource impulseSource;
 
     private Coroutine chargeAttackCoroutine;
 
@@ -72,8 +89,6 @@ public class PlayerAttacker : MonoBehaviour
         if (charging)
         {
             chargeTime += Time.deltaTime;
-
-            //play sfx and spawn particles at 2 charge levels
         }
     }
 
@@ -162,11 +177,16 @@ public class PlayerAttacker : MonoBehaviour
 
     private IEnumerator ChargingEffects()
     {
-        yield return new WaitForSeconds(maxChargeDuration / 2f);
-        AudioManager.PlaySFX(wrenchCharge1SFX, transform.position);
+        //play sfx and spawn particles at 2 charge levels
+        float halfCharge = maxChargeDuration * 0.5f;
 
-        yield return new WaitForSeconds(maxChargeDuration);
+        yield return new WaitForSeconds(halfCharge);
+        AudioManager.PlaySFX(wrenchCharge1SFX, transform.position);
+        chargeLvl1FX.Play();
+
+        yield return new WaitForSeconds(halfCharge);
         AudioManager.PlaySFX(wrenchCharge2SFX, transform.position);
+        chargeLvl2FX.Play();
     }
 
     private IEnumerator WrenchChargeSlash()
@@ -188,7 +208,9 @@ public class PlayerAttacker : MonoBehaviour
         if (chargeTime >= maxChargeDuration)
         {
             playerAnimator.SetTrigger("chargeAttackStrong");
+            impulseSource.GenerateImpulse();
             AudioManager.PlaySFX(wrenchChargeSlamSFX, transform.position);
+            chargeSlamFX.Play();
         }
         else
         {
@@ -229,6 +251,11 @@ public class PlayerAttacker : MonoBehaviour
     private void HitEnemies(float attackDamage, float attackRange)
     {
         HealthSystem[] hitObjects = GetHitObjects(attackRange, false);
+
+        if (hitObjects.Length > 0)
+        {
+            tarFX.Play();
+        }
 
         foreach (HealthSystem health in hitObjects)
         {

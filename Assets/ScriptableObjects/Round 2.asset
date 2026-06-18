@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 242274a6e4d84a245a8ab58cbc7cec56, type: 3}
+  m_Name: Round 2
+  m_EditorClassIdentifier: Assembly-CSharp::RoundWaves
+  enemyWaves:
+  - enemyType: 0
+    enemyNumber: 5
+    spawnRoute: 0
+    timeBetweenSpawns: 1.5
+    delayToNextWave: 10
+  - enemyType: 1
+    enemyNumber: 2
+    spawnRoute: 2
+    timeBetweenSpawns: 5
+    delayToNextWave: 10
+  - enemyType: 0
+    enemyNumber: 10
+    spawnRoute: 2
+    timeBetweenSpawns: 1
+    delayToNextWave: 10
+  - enemyType: 3
+    enemyNumber: 1
+    spawnRoute: 0
+    timeBetweenSpawns: 1
+    delayToNextWave: 0
+  - enemyType: 0
+    enemyNumber: 5
+    spawnRoute: 1
+    timeBetweenSpawns: 2
+    delayToNextWave: 2
+  - enemyType: 1
+    enemyNumber: 1
+    spawnRoute: 0
+    timeBetweenSpawns: 2
+    delayToNextWave: 2

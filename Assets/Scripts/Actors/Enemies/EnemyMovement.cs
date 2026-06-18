@@ -5,7 +5,7 @@ public abstract class EnemyMovement : MonoBehaviour
     private bool movementActive = false;
     protected float movementSpeed;
     protected float targetMovementSpeed;
-    private float movementSpeedRestoration = 2f;
+    private float movementSpeedRestoration = 0.5f;
 
     [SerializeField]
     private Transform visualTransform;

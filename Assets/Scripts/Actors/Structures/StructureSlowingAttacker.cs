@@ -18,6 +18,11 @@ public class StructureSlowingAttacker : StructureAttacker
             attackFX.Play();
         }
 
+        if (attackSFX)
+        {
+            AudioManager.PlaySFX(attackSFX, transform.position);
+        }
+
         attackTimer = 0f;
         attackReady = false;
     }

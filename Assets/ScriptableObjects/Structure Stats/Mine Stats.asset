@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Mine Stats
   m_EditorClassIdentifier: Assembly-CSharp::StructureStats
   maxHealth: 1
-  damage: 150
-  attackRange: 1
+  damage: 250
+  attackRange: 1.25
   attackFrequency: 0
   scrapCost: 50
   laneStructure: 1
