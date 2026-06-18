@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyFreeMovement : EnemyMovement
+public class EnemyBossMovement : EnemyMovement
 {
     private float movementRefreshTimer = 0f;
     private float movementRefreshFrequency = 0.15f;
@@ -55,36 +54,36 @@ public class EnemyFreeMovement : EnemyMovement
 
         SetVisualDirection(movementValue.x);
 
-        if (structureTarget)
-        {
-            return;
-        }
+        // if (structureTarget)
+        // {
+        //     return;
+        // }
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(
-            transform.position,
-            structureCheckRadius,
-            structureLayermask
-        );
+        // Collider2D[] colliders = Physics2D.OverlapCircleAll(
+        //     transform.position,
+        //     structureCheckRadius,
+        //     structureLayermask
+        // );
 
-        //Debug.Log("Colliders Found: " + colliders.Length);
+        // //Debug.Log("Colliders Found: " + colliders.Length);
 
-        //Debug.Log("Nearby structures: " + colliders.Length);
+        // //Debug.Log("Nearby structures: " + colliders.Length);
 
-        foreach (Collider2D collider in colliders)
-        {
-            if (
-                collider.TryGetComponent<StructureHealth>(out StructureHealth hitHealth)
-                && !hitHealth.GetIsLaneStructure()
-                && hitHealth.IsStructureActive()
-            )
-            {
-                //Debug.Log("Structure found: ");
+        // foreach (Collider2D collider in colliders)
+        // {
+        //     if (
+        //         collider.TryGetComponent<StructureHealth>(out StructureHealth hitHealth)
+        //         && !hitHealth.GetIsLaneStructure()
+        //         && hitHealth.IsStructureActive()
+        //     )
+        //     {
+        //         //Debug.Log("Structure found: ");
 
-                structureTarget = hitHealth.transform;
-                targetTransform = hitHealth.transform;
-                break;
-            }
-        }
+        //         structureTarget = hitHealth.transform;
+        //         targetTransform = hitHealth.transform;
+        //         break;
+        //     }
+        // }
     }
 
     public void SetEnemyRoute(Transform destination)

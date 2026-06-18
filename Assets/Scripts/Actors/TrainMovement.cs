@@ -12,7 +12,7 @@ public class TrainMovement : MonoBehaviour
     private float playerCheckFrequency = 1f;
     private float scrapCollectionDistance = 2.5f;
 
-    private int scrapPerCollection = 10;
+    private int scrapPerCollection = 25;
 
     private Transform playerTransform;
     private Transform movementGoal;
@@ -27,6 +27,12 @@ public class TrainMovement : MonoBehaviour
     private Transform endPoint;
 
     [SerializeField]
+    private Animator trainCarAnimator;
+
+    [SerializeField]
+    private Animator trainEngineAnimator;
+
+    [SerializeField]
     private ParticleSystem scrapDropFX;
 
     [SerializeField]
@@ -35,6 +41,9 @@ public class TrainMovement : MonoBehaviour
     private void Start()
     {
         playerTransform = PlayerIdentifier.PlayerTransform;
+
+        trainCarAnimator.SetTrigger("idle");
+        trainEngineAnimator.SetTrigger("idle");
     }
 
     private void Update()

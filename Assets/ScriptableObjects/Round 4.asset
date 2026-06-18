@@ -19,7 +19,7 @@ MonoBehaviour:
     timeBetweenSpawns: 1
     delayToNextWave: 5
   - enemyType: 2
-    enemyNumber: 5
+    enemyNumber: 1
     spawnRoute: 2
     timeBetweenSpawns: 1
     delayToNextWave: 5

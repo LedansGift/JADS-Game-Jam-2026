@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -8,9 +9,6 @@ public class EnemyController : MonoBehaviour
     private EnemyHealth health;
     private EnemyMovement movement;
     private EnemyAttacker attacker;
-
-    [SerializeField]
-    private GameObject enemyVisual;
 
     [SerializeField]
     private EnemyStats stats;
@@ -34,8 +32,6 @@ public class EnemyController : MonoBehaviour
 
         attacker.SetupAttacker(stats.damage, stats.attackFrequency);
         attacker.OnAttackableStructureNearby += ToggleAttackMode;
-
-        //enemyVisual.SetActive(false);
     }
 
     private void OnDisable()
@@ -53,19 +49,30 @@ public class EnemyController : MonoBehaviour
     public void SpawnEnemy()
     {
         enemyActive = true;
-        animator.SetTrigger("reset");
+
+        animator.SetBool("dead", false);
+
         attacker.ToggleAttacking(false);
         attacker.ToggleEnemyActive(true);
         health.ReviveEnemy();
-        //enemyVisual.SetActive(true);
 
         movement.StartMovement();
+
+        StartCoroutine(DelayedAnimationReset());
+    }
+
+    private IEnumerator DelayedAnimationReset()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        animator.SetTrigger("reset");
     }
 
     private void DespawnEnemy()
     {
         enemyActive = false;
         animator.SetTrigger("die");
+        animator.SetBool("dead", true);
         movement.StopMovement();
         attacker.ToggleAttacking(false);
         attacker.ToggleEnemyActive(false);
@@ -90,5 +97,10 @@ public class EnemyController : MonoBehaviour
         {
             movement.StartMovement();
         }
+    }
+
+    public bool GetIsEnemyActive()
+    {
+        return enemyActive;
     }
 }

@@ -6,7 +6,8 @@ public enum EnemyType
     fastLane,
     slowLane,
     roamer,
-    supplyTrain
+    supplyTrain,
+    boss
 }
 
 public class EnemySpawner : MonoBehaviour
@@ -36,6 +37,9 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField]
     private EnemyController[] crusherEnemies;
+
+    [SerializeField]
+    private EnemyController bossEnemy;
 
     private void Start()
     {
@@ -89,6 +93,9 @@ public class EnemySpawner : MonoBehaviour
                 aliveEnemies--;
                 trainManager.SpawnTrain(laneIndex);
                 break;
+            case EnemyType.boss:
+                SpawnBoss(bossEnemy, laneIndex);
+                break;
         }
     }
 
@@ -99,6 +106,12 @@ public class EnemySpawner : MonoBehaviour
 
         laneMovement.SetEnemyRoute(route.GetRouteWaypoints());
         laneMovement.SpawnEnemyAtLocation(route.GetSpawnPoint().position);
+
+        if (enemy.GetIsEnemyActive())
+        {
+            ReduceEnemyCount();
+        }
+
         enemy.SpawnEnemy();
     }
 
@@ -110,12 +123,33 @@ public class EnemySpawner : MonoBehaviour
         freeMovement.SetEnemyRoute(routeManager.GetStrongholdPosition());
         freeMovement.SpawnEnemyAtLocation(spawnPoint.position);
 
+        if (enemy.GetIsEnemyActive())
+        {
+            ReduceEnemyCount();
+        }
+
+        enemy.SpawnEnemy();
+    }
+
+    private void SpawnBoss(EnemyController enemy, int laneIndex)
+    {
+        EnemyBossMovement bossMovement = enemy.GetComponent<EnemyBossMovement>();
+        Transform spawnPoint = routeManager.GetRoamerSpawn(laneIndex);
+
+        bossMovement.SetEnemyRoute(routeManager.GetStrongholdPosition());
+        bossMovement.SpawnEnemyAtLocation(spawnPoint.position);
+
+        if (enemy.GetIsEnemyActive())
+        {
+            ReduceEnemyCount();
+        }
+
         enemy.SpawnEnemy();
     }
 
     private void ReduceEnemyCount()
     {
-        aliveEnemies = Mathf.Max(0, aliveEnemies - 1);
+        aliveEnemies--;
 
         Debug.Log("Alive Enemies: " + aliveEnemies);
 
@@ -144,6 +178,7 @@ public class EnemySpawner : MonoBehaviour
 
         if (aliveEnemies <= 0)
         {
+            aliveEnemies = 0;
             SetSpawnerActive(false);
             gameManager.EndRound();
         }

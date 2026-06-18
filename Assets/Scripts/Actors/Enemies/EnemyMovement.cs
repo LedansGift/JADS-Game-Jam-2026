@@ -5,7 +5,7 @@ public abstract class EnemyMovement : MonoBehaviour
     private bool movementActive = false;
     protected float movementSpeed;
     protected float targetMovementSpeed;
-    private float movementSpeedRestoration = 0.5f;
+    private float movementSpeedRestoration;
 
     [SerializeField]
     private Transform visualTransform;
@@ -41,6 +41,8 @@ public abstract class EnemyMovement : MonoBehaviour
 
     private void RestoreMovementSpeed()
     {
+        //Debug.Log("Movement Speed " + movementSpeed);
+
         movementSpeed += movementSpeedRestoration * Time.deltaTime;
     }
 
@@ -75,6 +77,8 @@ public abstract class EnemyMovement : MonoBehaviour
 
     public void SlowMovement(float movementSlowFactor)
     {
+        movementSpeedRestoration = targetMovementSpeed / 4f;
+
         movementSpeed = targetMovementSpeed * movementSlowFactor;
     }
 

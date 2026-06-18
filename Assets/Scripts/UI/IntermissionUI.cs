@@ -9,6 +9,7 @@ public class IntermissionUI : MonoBehaviour
     private int structureChosen = -1;
 
     private int blueprintLossStartRound = 1;
+    private int finalRoundIndex = 4;
 
     [SerializeField]
     private GameManager gameManager;
@@ -98,6 +99,16 @@ public class IntermissionUI : MonoBehaviour
         blueprintLossMenu.SetActive(true);
 
         DeselectAllStructures();
+
+        if (roundIndex >= finalRoundIndex)
+        {
+            for (int i = 0; i < structureButtons.Length; i++)
+            {
+                StructureAvailabilityManager.Instance.SetStructureAvailability(i, false);
+            }
+
+            structureChosen = 0;
+        }
 
         List<bool> currentStructureAvailability =
             StructureAvailabilityManager.Instance.GetStructureAvailability();

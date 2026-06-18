@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,6 +7,9 @@ public class GameOverUI : MonoBehaviour
 {
     [SerializeField]
     private CanvasGroupFader fader;
+
+    [SerializeField]
+    private CanvasGroupFader endStoryFader;
 
     [SerializeField]
     private GameObject gameWinScreen;
@@ -16,6 +20,9 @@ public class GameOverUI : MonoBehaviour
         fader.ToggleBlockRaycasts(false);
 
         gameWinScreen.SetActive(false);
+
+        endStoryFader.SetCanvasGroupAlpha(0f);
+        endStoryFader.ToggleBlockRaycasts(false);
     }
 
     private void Start()
@@ -34,6 +41,16 @@ public class GameOverUI : MonoBehaviour
     {
         gameWinScreen.SetActive(true);
         ToggleGameOverScreen();
+
+        StartCoroutine(FadeInStory());
+    }
+
+    private IEnumerator FadeInStory()
+    {
+        yield return new WaitForSeconds(3f);
+
+        endStoryFader.ToggleFade(true);
+        endStoryFader.ToggleBlockRaycasts(true);
     }
 
     private void ToggleGameOverScreen()

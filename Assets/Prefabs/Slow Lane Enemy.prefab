@@ -28,8 +28,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0.02, y: 0.67, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5495993463939234324}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
@@ -116,8 +116,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 0.5
+      scalar: 0.75
+      minScalar: 0.4
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -287,8 +287,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.4
-      minScalar: 0.25
+      scalar: 2
+      minScalar: 1.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -980,7 +980,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 10
+        scalar: 5
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -4840,7 +4840,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1925f0271ec48ae42a8df3b19f187164, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4945,7 +4945,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7747e7525d7889147b07012b727e862d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  enemyVisual: {fileID: 5182652292953357396}
   stats: {fileID: 11400000, guid: e68b6da31f15c454d82772423789428d, type: 2}
   animator: {fileID: 2028073975143767937}
 --- !u!114 &4096303838736551685
@@ -5179,11 +5178,6 @@ MeshRenderer:
 --- !u!95 &2028073975143767937 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 906074844513722207, guid: a88678a89d5e9124e80d4abd10129878, type: 3}
-  m_PrefabInstance: {fileID: 1204199206084985054}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5182652292953357396 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6294437991739423882, guid: a88678a89d5e9124e80d4abd10129878, type: 3}
   m_PrefabInstance: {fileID: 1204199206084985054}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &8240623936217481159 stripped

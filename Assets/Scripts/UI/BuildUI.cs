@@ -70,12 +70,14 @@ public class BuildUI : MonoBehaviour
     {
         PlayerBuilder.OnToggleBuildUI += ToggleBuildUI;
         PlayerBuilder.OnNewActiveStructure += SetNewActiveStructure;
+        ScrapManager.OnNewScrap += UpdateScrapCost;
     }
 
     private void OnDisable()
     {
         PlayerBuilder.OnToggleBuildUI -= ToggleBuildUI;
         PlayerBuilder.OnNewActiveStructure -= SetNewActiveStructure;
+        ScrapManager.OnNewScrap -= UpdateScrapCost;
         CinemachineCore.CameraUpdatedEvent.RemoveListener(OnCameraUpdated);
     }
 
@@ -133,6 +135,18 @@ public class BuildUI : MonoBehaviour
         }
 
         structureUIs[newIndex].ToggleOpacity(true);
+    }
+
+    private void UpdateScrapCost(object sender, int e)
+    {
+        for (int i = 0; i < structureStats.Length; i++)
+        {
+            bool structureAffordable = ScrapManager.Instance.IsEnoughAvailableScrap(
+                structureStats[i].scrapCost
+            );
+
+            structureUIs[i + 1].TogglePurchaseable(structureAffordable);
+        }
     }
 
     private void OnCameraUpdated(CinemachineBrain arg0)

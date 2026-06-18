@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AOE Tower Stats
   m_EditorClassIdentifier: Assembly-CSharp::StructureStats
   maxHealth: 150
-  damage: 25
+  damage: 40
   attackRange: 1.5
   attackFrequency: 2
   scrapCost: 150

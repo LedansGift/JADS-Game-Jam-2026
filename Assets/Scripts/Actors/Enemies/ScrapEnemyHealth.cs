@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ScrapEnemyHealth : EnemyHealth
 {
-    private int scrapDropPerHit = 5;
+    private int scrapDropPerHit = 10;
 
     [SerializeField]
     private ParticleSystem scrapDropEffect;

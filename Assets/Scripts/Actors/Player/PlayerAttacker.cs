@@ -252,13 +252,20 @@ public class PlayerAttacker : MonoBehaviour
     {
         HealthSystem[] hitObjects = GetHitObjects(attackRange, false);
 
-        if (hitObjects.Length > 0)
-        {
-            tarFX.Play();
-        }
+        bool enemyHit = false;
 
         foreach (HealthSystem health in hitObjects)
         {
+            if (health.GetType() == typeof(EnemyHealth))
+            {
+                EnemyHealth enemyHealth = health as EnemyHealth;
+
+                if (!enemyHealth.IsEnemyAlive())
+                {
+                    continue;
+                }
+            }
+
             if (health.GetType() == typeof(ScrapEnemyHealth))
             {
                 ScrapEnemyHealth scrapEnemyHealth = health as ScrapEnemyHealth;
@@ -267,6 +274,12 @@ public class PlayerAttacker : MonoBehaviour
             }
 
             health.TakeDamage(attackDamage);
+            enemyHit = true;
+        }
+
+        if (enemyHit)
+        {
+            tarFX.Play();
         }
     }
 
@@ -312,13 +325,16 @@ public class PlayerAttacker : MonoBehaviour
                 {
                     ScrapManager.Instance.SpendScrap(playerStats.GetRepairCost());
                     structureHealth.HealDamage(repairAmount);
-                    // Use up scrap
 
                     AudioManager.PlaySFX(wrenchRepairSFX, transform.position);
                 }
                 else
                 {
-                    //No scrap UI
+                    TextBarkManager.SpawnBark(
+                        attackTransform.position,
+                        "Not Enough Scrap",
+                        Color.red
+                    );
                 }
 
                 break;
