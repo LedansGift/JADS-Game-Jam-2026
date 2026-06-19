@@ -83,9 +83,6 @@ MonoBehaviour:
   animator: {fileID: 5956628318288330403}
   moveRb: {fileID: 8065991376142859578}
   meshRenderer: {fileID: 3010006980822209969}
-  structureLayermask:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!114 &197919813768824051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,8 +135,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.75}
-  m_Size: {x: 1, y: 1.5}
+  m_Offset: {x: 0, y: 1}
+  m_Size: {x: 2.5, y: 7}
   m_Direction: 0
 --- !u!50 &8065991376142859578
 Rigidbody2D:
@@ -176,6 +173,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4032357184095999444}
     m_Modifications:
+    - target: {fileID: 770751580567394728, guid: ed3eb0b0c5df57c4bac2ed55ebb8e08b, type: 3}
+      propertyPath: boneName
+      value: root
+      objectReference: {fileID: 0}
     - target: {fileID: 788559300354335415, guid: ed3eb0b0c5df57c4bac2ed55ebb8e08b, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0
@@ -196,9 +197,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 2022855916419029652, guid: ed3eb0b0c5df57c4bac2ed55ebb8e08b, type: 3}
+      propertyPath: m_Name
+      value: Spine Mecanim GameObject (boss)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902701279957412599, guid: ed3eb0b0c5df57c4bac2ed55ebb8e08b, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 1f480dd28b3c7e84daa188a8f6ff30e4, type: 2}
+    - target: {fileID: 3754575550064697630, guid: ed3eb0b0c5df57c4bac2ed55ebb8e08b, type: 3}
+      propertyPath: skeletonDataAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e063f864cc13f14b900131fa4c51152, type: 2}
     - target: {fileID: 5273528850517611121, guid: ed3eb0b0c5df57c4bac2ed55ebb8e08b, type: 3}
       propertyPath: m_Name
-      value: towercrusher
+      value: boss
       objectReference: {fileID: 0}
     - target: {fileID: 5992030425398100453, guid: ed3eb0b0c5df57c4bac2ed55ebb8e08b, type: 3}
       propertyPath: m_CastShadows
@@ -212,6 +225,10 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 65274039
       objectReference: {fileID: 0}
+    - target: {fileID: 5992030425398100453, guid: ed3eb0b0c5df57c4bac2ed55ebb8e08b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: fd4df6567b76f534db471b0ef8ed7fbc, type: 2}
     - target: {fileID: 6618914523027478768, guid: ed3eb0b0c5df57c4bac2ed55ebb8e08b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.35
@@ -230,7 +247,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6618914523027478768, guid: ed3eb0b0c5df57c4bac2ed55ebb8e08b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6618914523027478768, guid: ed3eb0b0c5df57c4bac2ed55ebb8e08b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -267,6 +284,22 @@ PrefabInstance:
     - target: {fileID: 6618914523027478768, guid: ed3eb0b0c5df57c4bac2ed55ebb8e08b, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8622170581533739493, guid: ed3eb0b0c5df57c4bac2ed55ebb8e08b, type: 3}
+      propertyPath: slotName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8622170581533739493, guid: ed3eb0b0c5df57c4bac2ed55ebb8e08b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8996560919089310389, guid: ed3eb0b0c5df57c4bac2ed55ebb8e08b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8996560919089310389, guid: ed3eb0b0c5df57c4bac2ed55ebb8e08b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9001908391188407887, guid: ed3eb0b0c5df57c4bac2ed55ebb8e08b, type: 3}
       propertyPath: m_Mesh

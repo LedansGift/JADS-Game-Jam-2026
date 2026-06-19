@@ -8,6 +8,9 @@ public class RouteManager : MonoBehaviour
     private Transform strongholdPosition;
 
     [SerializeField]
+    private Transform bossSpawn;
+
+    [SerializeField]
     private Transform[] roamerSpawns;
 
     [SerializeField]
@@ -57,6 +60,11 @@ public class RouteManager : MonoBehaviour
     public Transform GetStrongholdPosition()
     {
         return strongholdPosition;
+    }
+
+    public Transform GetBossSpawn()
+    {
+        return bossSpawn;
     }
 
     public Transform GetRoamerSpawn(int laneIndex)

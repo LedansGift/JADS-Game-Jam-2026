@@ -59,6 +59,9 @@ public class PlayerAttacker : MonoBehaviour
     private SFXObject wrenchConstructSFX;
 
     [SerializeField]
+    private SFXObject denialSFX;
+
+    [SerializeField]
     private CinemachineImpulseSource impulseSource;
 
     private Coroutine chargeAttackCoroutine;
@@ -82,6 +85,8 @@ public class PlayerAttacker : MonoBehaviour
         InputManager.Instance.OnAttackEvent -= WeaponAttack;
         InputManager.Instance.OnRepairEvent -= WeaponRepair;
         InputManager.Instance.OnAttackReleaseEvent -= WeaponAttackRelease;
+
+        StopAllCoroutines();
     }
 
     private void Update()
@@ -142,6 +147,23 @@ public class PlayerAttacker : MonoBehaviour
         playerAnimator.SetTrigger("build");
 
         StartCoroutine(WrenchRepair());
+    }
+
+    private void CancelChargeAttack()
+    {
+        if (chargeAttackCoroutine != null)
+        {
+            StopCoroutine(chargeAttackCoroutine);
+        }
+
+        if (charging)
+        {
+            attackHeld = false;
+            charging = false;
+            isBusy = false;
+
+            playerAnimator.SetTrigger("attack");
+        }
     }
 
     private IEnumerator WrenchSlash()
@@ -296,10 +318,46 @@ public class PlayerAttacker : MonoBehaviour
             {
                 if (!hitStructure.StructureBuilt())
                 {
-                    hitStructure.BuildStructure();
-                    structureBuild = true;
+                    StructureStats structureStats = hitStructure.GetStats();
 
-                    AudioManager.PlaySFX(wrenchConstructSFX, transform.position);
+                    int structureIndex = structureStats.structureIndex;
+
+                    if (
+                        !StructureAvailabilityManager.Instance.GetStructureAvailability()[
+                            structureIndex
+                        ]
+                    )
+                    {
+                        TextBarkManager.SpawnBark(
+                            attackTransform.position,
+                            "No Blueprint",
+                            Color.red
+                        );
+
+                        AudioManager.PlaySFX(denialSFX, transform.position);
+                    }
+                    else
+                    {
+                        int scrapCost = structureStats.scrapCost / structureStats.buildsRequired;
+
+                        if (ScrapManager.Instance.IsEnoughAvailableScrap(scrapCost))
+                        {
+                            hitStructure.BuildStructure();
+                            structureBuild = true;
+
+                            ScrapManager.Instance.SpendScrap(scrapCost);
+                            AudioManager.PlaySFX(wrenchConstructSFX, transform.position);
+                        }
+                        else
+                        {
+                            TextBarkManager.SpawnBark(
+                                attackTransform.position,
+                                "Not Enough Scrap",
+                                Color.red
+                            );
+                        }
+                    }
+
                     break;
                 }
             }
@@ -323,10 +381,32 @@ public class PlayerAttacker : MonoBehaviour
             {
                 if (ScrapManager.Instance.IsEnoughAvailableScrap(playerStats.GetRepairCost()))
                 {
-                    ScrapManager.Instance.SpendScrap(playerStats.GetRepairCost());
-                    structureHealth.HealDamage(repairAmount);
+                    int structureIndex = structureHealth
+                        .GetComponent<Structure>()
+                        .GetStats()
+                        .structureIndex;
 
-                    AudioManager.PlaySFX(wrenchRepairSFX, transform.position);
+                    if (
+                        !StructureAvailabilityManager.Instance.GetStructureAvailability()[
+                            structureIndex
+                        ]
+                    )
+                    {
+                        TextBarkManager.SpawnBark(
+                            attackTransform.position,
+                            "No Blueprint",
+                            Color.red
+                        );
+
+                        AudioManager.PlaySFX(denialSFX, transform.position);
+                    }
+                    else
+                    {
+                        ScrapManager.Instance.SpendScrap(playerStats.GetRepairCost());
+                        structureHealth.HealDamage(repairAmount);
+
+                        AudioManager.PlaySFX(wrenchRepairSFX, transform.position);
+                    }
                 }
                 else
                 {
@@ -369,5 +449,6 @@ public class PlayerAttacker : MonoBehaviour
     public void ToggleCanAttack(bool toggle)
     {
         canAttack = toggle;
+        CancelChargeAttack();
     }
 }

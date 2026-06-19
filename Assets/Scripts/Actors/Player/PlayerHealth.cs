@@ -24,6 +24,11 @@ public class PlayerHealth : HealthSystem
         SetMaxHealth();
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     private IEnumerator DamageInvincibility()
     {
         invincible = true;

@@ -87,19 +87,12 @@ public class BuildUI : MonoBehaviour
             playerTransform.position + playerOffset
         );
 
-        rectTransform.anchoredPosition = screenPosition;
+        rectTransform.transform.position = screenPosition;
     }
 
     private void ToggleBuildUI(object sender, bool toggle)
     {
         fader.ToggleFade(toggle);
-        //Reset visuals to show default option
-        // if (toggle)
-        // {
-
-        // }
-
-        //structureGroupPreviousXGoal = STRUCTURE_GROUP_START_X;
 
         if (toggle)
         {

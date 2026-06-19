@@ -4,15 +4,12 @@ public class EnemyBossMovement : EnemyMovement
 {
     private float movementRefreshTimer = 0f;
     private float movementRefreshFrequency = 0.15f;
-    private float structureCheckRadius = 3f;
+
     private Vector2 currentMovementValue = Vector2.zero;
 
     [SerializeField]
     private MeshRenderer meshRenderer;
 
-    [SerializeField]
-    private LayerMask structureLayermask;
-    private Transform structureTarget;
     private Transform strongholdTarget;
 
     private Transform targetTransform;
@@ -53,37 +50,6 @@ public class EnemyBossMovement : EnemyMovement
         meshRenderer.sortingOrder = Mathf.RoundToInt((-transform.position.y) * 100f);
 
         SetVisualDirection(movementValue.x);
-
-        // if (structureTarget)
-        // {
-        //     return;
-        // }
-
-        // Collider2D[] colliders = Physics2D.OverlapCircleAll(
-        //     transform.position,
-        //     structureCheckRadius,
-        //     structureLayermask
-        // );
-
-        // //Debug.Log("Colliders Found: " + colliders.Length);
-
-        // //Debug.Log("Nearby structures: " + colliders.Length);
-
-        // foreach (Collider2D collider in colliders)
-        // {
-        //     if (
-        //         collider.TryGetComponent<StructureHealth>(out StructureHealth hitHealth)
-        //         && !hitHealth.GetIsLaneStructure()
-        //         && hitHealth.IsStructureActive()
-        //     )
-        //     {
-        //         //Debug.Log("Structure found: ");
-
-        //         structureTarget = hitHealth.transform;
-        //         targetTransform = hitHealth.transform;
-        //         break;
-        //     }
-        // }
     }
 
     public void SetEnemyRoute(Transform destination)

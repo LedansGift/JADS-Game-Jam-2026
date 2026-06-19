@@ -4910,6 +4910,10 @@ PrefabInstance:
       propertyPath: attacker
       value: 
       objectReference: {fileID: 4882542538098724501}
+    - target: {fileID: 1124721164576499181, guid: 78d895a5def8ec64b8fb6df78d878d85, type: 3}
+      propertyPath: buildFinished
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1556432630265008255, guid: 78d895a5def8ec64b8fb6df78d878d85, type: 3}
       propertyPath: m_Sprite
       value: 

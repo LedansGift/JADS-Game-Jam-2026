@@ -33,6 +33,11 @@ public class ScrapManager : MonoBehaviour
         StartCoroutine(InitialScrapAdd());
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     private IEnumerator InitialScrapAdd()
     {
         yield return new WaitForSeconds(1f);

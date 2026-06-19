@@ -5,9 +5,11 @@ public abstract class StructureAttacker : MonoBehaviour
 {
     protected bool attackerActive = false;
     protected bool attackReady = false;
+    protected bool attackDebuff = false;
     protected float attackTimer = 0f;
     protected float attackCheckTimer = 0f;
     protected float attackCheckFrequency = 0.3f;
+    protected float attackDamageReduction = 0.75f;
     protected StructureStats stats;
 
     [SerializeField]
@@ -74,7 +76,7 @@ public abstract class StructureAttacker : MonoBehaviour
 
         foreach (EnemyHealth enemyHealth in enemies)
         {
-            enemyHealth.TakeDamage(stats.damage);
+            enemyHealth.TakeDamage(stats.damage * attackDamageReduction);
         }
 
         if (attackFX)
@@ -125,6 +127,11 @@ public abstract class StructureAttacker : MonoBehaviour
         {
             structureAnimator.SetTrigger("idle");
         }
+    }
+
+    public void DebuffTower()
+    {
+        attackDebuff = true;
     }
 
     public void SetStats(StructureStats stats)

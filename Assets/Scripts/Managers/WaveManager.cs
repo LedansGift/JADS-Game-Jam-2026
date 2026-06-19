@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,7 +6,10 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     private EnemySpawner enemySpawner;
 
-    //public Action OnWavesFinishedSpawning;
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
 
     private IEnumerator EnemySpawnCoroutine(EnemyWave enemyWave)
     {

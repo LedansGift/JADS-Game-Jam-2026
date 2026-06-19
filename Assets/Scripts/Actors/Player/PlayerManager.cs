@@ -43,8 +43,8 @@ public class PlayerManager : MonoBehaviour
         playerBuilder.OnSuccessfulBuild -= CloseBuildMenu;
         playerAttacker.OnPauseMovement -= ToggleAttackStop;
 
-        GameManager.OnNewRoundStart += ActivatePlayer;
-        GameManager.OnRoundEnd += DeactivatePlayer;
+        GameManager.OnNewRoundStart -= ActivatePlayer;
+        GameManager.OnRoundEnd -= DeactivatePlayer;
     }
 
     private void ToggleBuilding()

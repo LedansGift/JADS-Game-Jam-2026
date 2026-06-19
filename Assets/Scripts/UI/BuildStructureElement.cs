@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class BuildStructureElement : MonoBehaviour
 {
-    private const float inactiveOpacity = 0.6f;
+    private const float inactiveOpacity = 0.3f;
 
     [SerializeField]
     private GameObject unavailableImage;

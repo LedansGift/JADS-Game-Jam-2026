@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e3fbf468f7c11a4eb86b4c17d2dcb71, type: 3}
   m_Name: Barricade Stats
   m_EditorClassIdentifier: Assembly-CSharp::StructureStats
-  maxHealth: 200
+  maxHealth: 400
   damage: 0
   attackRange: 0
   attackFrequency: 0
-  scrapCost: 75
+  scrapCost: 80
   laneStructure: 1
+  structureIndex: 4
+  buildsRequired: 2

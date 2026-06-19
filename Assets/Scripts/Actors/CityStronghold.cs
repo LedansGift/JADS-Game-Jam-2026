@@ -7,7 +7,7 @@ public class CityStronghold : MonoBehaviour
     private bool gameOver = false;
 
     private float strongholdHealth;
-    private float strongholdMaxHealth = 250f;
+    private float strongholdMaxHealth = 200f;
 
     [SerializeField]
     private Transform healthBar;
@@ -39,8 +39,14 @@ public class CityStronghold : MonoBehaviour
 
         if (other.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth))
         {
-            enemyHealth.TakeDamage(9999f);
             TakeStrongholdDamage(enemyHealth.GetStrongholdDamage());
+
+            if (enemyHealth.GetComponent<EnemyBossMovement>())
+            {
+                return;
+            }
+
+            enemyHealth.TakeDamage(9999f);
         }
     }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 public class Structure : MonoBehaviour
 {
     private float buildProgress = 0;
+
     private float buildFinished = 4;
 
     private GridPosition gridPosition;
@@ -22,11 +23,16 @@ public class Structure : MonoBehaviour
     [SerializeField]
     private StructureStats stats;
 
+    public static Action OnStructureBuilt;
+
     private void Awake()
     {
         health = GetComponent<StructureHealth>();
         health.SetMaxHealth(stats.maxHealth);
         health.OnStructureDestroyed += DestroyStructure;
+        GameManager.OnDebuffTowers += SetStructureDebuffStatus;
+
+        buildFinished = stats.buildsRequired;
 
         structureUnfinishedVisual.sortingOrder = Mathf.RoundToInt((-transform.position.y) * 100f);
         structureFinishedVisual.sortingOrder = Mathf.RoundToInt((-transform.position.y) * 100f);
@@ -40,13 +46,14 @@ public class Structure : MonoBehaviour
     private void OnDisable()
     {
         health.OnStructureDestroyed -= DestroyStructure;
+        GameManager.OnDebuffTowers -= SetStructureDebuffStatus;
     }
 
     public void BuildStructure()
     {
         buildProgress++;
         //Debug.Log("Structure hit");
-        health.SetBuildHealthbar(0.25f * buildProgress);
+        health.SetBuildHealthbar(buildProgress / buildFinished);
 
         if (StructureBuilt())
         {
@@ -56,6 +63,8 @@ public class Structure : MonoBehaviour
             health.ActivateStructure(stats.laneStructure);
             structureUnfinishedVisual.gameObject.SetActive(false);
             structureFinishedVisual.gameObject.SetActive(true);
+
+            OnStructureBuilt?.Invoke();
 
             if (attacker)
             {
@@ -80,6 +89,14 @@ public class Structure : MonoBehaviour
         LevelGrid.Instance.RemoveStructureAtGridPosition(gridPosition, this);
 
         Destroy(gameObject, 1f);
+    }
+
+    public void SetStructureDebuffStatus()
+    {
+        if (attacker)
+        {
+            attacker.DebuffTower();
+        }
     }
 
     public void SetStructureGridPosition(GridPosition gridPosition)

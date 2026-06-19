@@ -14,8 +14,11 @@ using UnityEngine;
 public class PlayerBuilder : MonoBehaviour
 {
     private bool buildModeActive = false;
+    private bool debuffedTowers = false;
 
     private int activeStructureIndex = 0;
+
+    private float barkSpawnPosition = 1.5f;
 
     [SerializeField]
     private GameObject[] structurePrefabs;
@@ -47,6 +50,7 @@ public class PlayerBuilder : MonoBehaviour
         InputManager.Instance.OnAttackEvent += TryBuildStructure;
         InputManager.Instance.OnCycleLeftEvent += CycleStructuresLeft;
         InputManager.Instance.OnCycleRightEvent += CycleStructuresRight;
+        GameManager.OnDebuffTowers += SetDebuffStatus;
 
         prefabStats = StructureAvailabilityManager.Instance.GetStructureStats();
     }
@@ -56,6 +60,7 @@ public class PlayerBuilder : MonoBehaviour
         InputManager.Instance.OnAttackEvent -= TryBuildStructure;
         InputManager.Instance.OnCycleLeftEvent -= CycleStructuresLeft;
         InputManager.Instance.OnCycleRightEvent -= CycleStructuresRight;
+        GameManager.OnDebuffTowers -= SetDebuffStatus;
     }
 
     private void TryBuildStructure()
@@ -96,6 +101,11 @@ public class PlayerBuilder : MonoBehaviour
 
         if (!StructureAvailabilityManager.Instance.GetStructureAvailability()[prefabIndex])
         {
+            TextBarkManager.SpawnBark(
+                transform.position + new Vector3(0, barkSpawnPosition, 0),
+                "No Blueprint",
+                Color.red
+            );
             AudioManager.PlaySFX(buildDenialSFX, transform.position);
             return;
         }
@@ -103,8 +113,8 @@ public class PlayerBuilder : MonoBehaviour
         if (hasStructure)
         {
             TextBarkManager.SpawnBark(
-                transform.position + new Vector3(0, 1.5f, 0),
-                "Occupied By Another Tower",
+                transform.position + new Vector3(0, barkSpawnPosition, 0),
+                "Occupied by another tower",
                 Color.red
             );
             AudioManager.PlaySFX(buildDenialSFX, transform.position);
@@ -116,19 +126,42 @@ public class PlayerBuilder : MonoBehaviour
             != prefabStructureStats.laneStructure
         )
         {
+            if (prefabStructureStats.laneStructure)
+            {
+                TextBarkManager.SpawnBark(
+                    transform.position + new Vector3(0, barkSpawnPosition, 0),
+                    "Must be placed in a lane",
+                    Color.red
+                );
+            }
+            else
+            {
+                TextBarkManager.SpawnBark(
+                    transform.position + new Vector3(0, barkSpawnPosition, 0),
+                    "Cannot be placed in lane",
+                    Color.red
+                );
+            }
+
             AudioManager.PlaySFX(buildDenialSFX, transform.position);
             return;
         }
 
         if (!ScrapManager.Instance.IsEnoughAvailableScrap(prefabStructureStats.scrapCost))
         {
+            TextBarkManager.SpawnBark(
+                transform.position + new Vector3(0, barkSpawnPosition, 0),
+                "Not Enough Scrap",
+                Color.red
+            );
+
             AudioManager.PlaySFX(buildDenialSFX, transform.position);
             return;
         }
 
         PlaceStructure(structurePrefabs[prefabIndex], currentGridPosition);
 
-        ScrapManager.Instance.SpendScrap(prefabStructureStats.scrapCost);
+        //ScrapManager.Instance.SpendScrap(prefabStructureStats.scrapCost);
 
         AudioManager.PlaySFX(placeStructureSFX, transform.position);
 
@@ -141,6 +174,11 @@ public class PlayerBuilder : MonoBehaviour
         Structure newStructure = Instantiate(structure, spawnPosition, Quaternion.identity)
             .GetComponent<Structure>();
         newStructure.SetStructureGridPosition(gridPosition);
+
+        if (debuffedTowers)
+        {
+            newStructure.SetStructureDebuffStatus();
+        }
 
         LevelGrid.Instance.AddStructureAtGridPosition(gridPosition, newStructure);
     }
@@ -205,6 +243,11 @@ public class PlayerBuilder : MonoBehaviour
         {
             AudioManager.PlaySFX(closeBuildMenuSFX, transform.position);
         }
+    }
+
+    private void SetDebuffStatus()
+    {
+        debuffedTowers = true;
     }
 
     public bool IsBuilding()

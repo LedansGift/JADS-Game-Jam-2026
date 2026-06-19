@@ -35,6 +35,11 @@ public class EnemyAttacker : MonoBehaviour
     [SerializeField]
     private LayerMask structureMask;
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     private void Update()
     {
         if (!enemyActive)
@@ -128,6 +133,11 @@ public class EnemyAttacker : MonoBehaviour
     public void ToggleAttacking(bool toggle)
     {
         attacking = toggle;
+    }
+
+    public void SetAttackRange(float attackRange)
+    {
+        attackCheckRadius = attackRange;
     }
 
     public void ToggleEnemyActive(bool toggle)

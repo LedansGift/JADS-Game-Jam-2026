@@ -46,6 +46,11 @@ public class TrainMovement : MonoBehaviour
         trainEngineAnimator.SetTrigger("idle");
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     private void Update()
     {
         if (!isTrainActive)

@@ -41,6 +41,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private EnemyController bossEnemy;
 
+    [SerializeField]
+    private SFXObject bossSpawnSFX;
+
     private void Start()
     {
         routeManager = RouteManager.Instance;
@@ -134,10 +137,14 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnBoss(EnemyController enemy, int laneIndex)
     {
         EnemyBossMovement bossMovement = enemy.GetComponent<EnemyBossMovement>();
-        Transform spawnPoint = routeManager.GetRoamerSpawn(laneIndex);
+        EnemyAttacker bossAttacker = enemy.GetComponent<EnemyAttacker>();
+        Transform spawnPoint = routeManager.GetBossSpawn();
+
+        AudioManager.PlaySFX(bossSpawnSFX, transform.position, false);
 
         bossMovement.SetEnemyRoute(routeManager.GetStrongholdPosition());
         bossMovement.SpawnEnemyAtLocation(spawnPoint.position);
+        bossAttacker.SetAttackRange(3f);
 
         if (enemy.GetIsEnemyActive())
         {

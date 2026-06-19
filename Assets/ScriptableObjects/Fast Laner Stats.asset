@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 974b52e9219b191419c08fb1f9d8667d, type: 3}
   m_Name: Fast Laner Stats
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
-  maxHealth: 250
+  maxHealth: 300
   damage: 10
   strongholdDamage: 10
   attackFrequency: 1
-  movementSpeed: 0.65
+  movementSpeed: 0.6

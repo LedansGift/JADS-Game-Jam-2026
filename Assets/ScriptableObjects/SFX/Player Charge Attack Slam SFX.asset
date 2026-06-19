@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Player Charge Attack Slam SFX
   m_EditorClassIdentifier: Assembly-CSharp::SFXObject
   sfxClip: {fileID: 8300000, guid: 1af66c4a46f8e2f4aa6e09cd3cadd95f, type: 3}
-  volume: 0.75
+  volume: 0.6
   pitch: 1

@@ -16,5 +16,7 @@ MonoBehaviour:
   damage: 40
   attackRange: 1.5
   attackFrequency: 2
-  scrapCost: 150
+  scrapCost: 160
   laneStructure: 0
+  structureIndex: 1
+  buildsRequired: 4

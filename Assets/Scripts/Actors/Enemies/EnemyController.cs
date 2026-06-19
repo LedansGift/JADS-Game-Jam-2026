@@ -39,6 +39,8 @@ public class EnemyController : MonoBehaviour
         health.OnEnemyDead -= DespawnEnemy;
         health.OnEnemyDamaged -= DamageEnemy;
         attacker.OnAttackableStructureNearby -= ToggleAttackMode;
+
+        StopAllCoroutines();
     }
 
     private void DamageEnemy()

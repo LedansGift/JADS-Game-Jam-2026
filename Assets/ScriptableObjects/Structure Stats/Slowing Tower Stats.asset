@@ -18,3 +18,5 @@ MonoBehaviour:
   attackFrequency: 3
   scrapCost: 200
   laneStructure: 0
+  structureIndex: 2
+  buildsRequired: 8

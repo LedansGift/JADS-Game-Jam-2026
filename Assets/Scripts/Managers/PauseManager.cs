@@ -23,13 +23,13 @@ public class PauseManager : MonoBehaviour
     private void Start()
     {
         InputManager.Instance.OnMenuEvent += TogglePause;
-        //LevelManager.OnGameEndLight += EndOfGamePause;
     }
 
     private void OnDisable()
     {
         InputManager.Instance.OnMenuEvent -= TogglePause;
-        //LevelManager.OnGameEndLight -= EndOfGamePause;
+
+        StopAllCoroutines();
     }
 
     private IEnumerator PauseCD()

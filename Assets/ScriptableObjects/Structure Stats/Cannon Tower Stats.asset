@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StructureStats
   maxHealth: 150
   damage: 80
-  attackRange: 10
+  attackRange: 15
   attackFrequency: 5
-  scrapCost: 250
+  scrapCost: 240
   laneStructure: 0
+  structureIndex: 3
+  buildsRequired: 6

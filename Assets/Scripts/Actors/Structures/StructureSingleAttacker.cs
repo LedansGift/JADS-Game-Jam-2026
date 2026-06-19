@@ -74,20 +74,10 @@ public class StructureSingleAttacker : StructureAttacker
         lightningLine.SetPosition(1, mostLeftEnemy.transform.position);
 
         lightningLine.gameObject.SetActive(true);
-        //StartCoroutine(TurnOffLightning());
 
         List<EnemyHealth> returnHealth = new List<EnemyHealth> { mostLeftEnemy };
         return returnHealth;
     }
-
-    // private IEnumerator TurnOffLightning()
-    // {
-    //     yield return new WaitForSeconds(0.1f);
-
-    //     lightningLine.widthMultiplier
-
-    //     lightningLine.gameObject.SetActive(false);
-    // }
 
     public override void ToggleAttacker(bool toggle)
     {

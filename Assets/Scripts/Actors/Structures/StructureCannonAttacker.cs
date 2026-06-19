@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class StructureCannonAttacker : StructureAttacker
 {
-    private float cannonFireWidth = 1f;
+    private float cannonFireWidth = 1.25f;
 
     protected override List<EnemyHealth> PerformEnemyCheck()
     {

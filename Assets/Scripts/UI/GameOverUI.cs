@@ -12,6 +12,9 @@ public class GameOverUI : MonoBehaviour
     private CanvasGroupFader endStoryFader;
 
     [SerializeField]
+    private GameObject gameOverScreen;
+
+    [SerializeField]
     private GameObject gameWinScreen;
 
     private void Awake()
@@ -35,18 +38,24 @@ public class GameOverUI : MonoBehaviour
     {
         CityStronghold.OnGameOver -= ToggleGameOverScreen;
         GameManager.OnGameWin -= ToggleGameWinScreen;
+
+        StopAllCoroutines();
     }
 
     private void ToggleGameWinScreen()
     {
         gameWinScreen.SetActive(true);
-        ToggleGameOverScreen();
+        gameOverScreen.SetActive(false);
 
         StartCoroutine(FadeInStory());
     }
 
     private IEnumerator FadeInStory()
     {
+        yield return new WaitForSeconds(3f);
+
+        ToggleGameOverScreen();
+
         yield return new WaitForSeconds(3f);
 
         endStoryFader.ToggleFade(true);

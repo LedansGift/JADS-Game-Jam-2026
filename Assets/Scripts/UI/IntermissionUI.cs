@@ -48,6 +48,8 @@ public class IntermissionUI : MonoBehaviour
     private void OnDisable()
     {
         GameManager.OnRoundEnd -= RoundEndIntermission;
+
+        StopAllCoroutines();
     }
 
     private void DeselectAllStructures()
@@ -70,11 +72,6 @@ public class IntermissionUI : MonoBehaviour
 
     private void RoundEndIntermission(object sender, int roundIndex)
     {
-        // if (!gameManager)
-        // {
-        //     gameManager = sender as GameManager;
-        // }
-
         structureChosen = -1;
         currentRoundIndex = roundIndex;
 
@@ -153,7 +150,6 @@ public class IntermissionUI : MonoBehaviour
         AudioManager.PlaySFX(buttonClickSFX, transform.position);
         if ((currentRoundIndex >= blueprintLossStartRound) && (structureChosen < 0))
         {
-            //Display "You must pick a Blueprint" graphic
             pickBluePrintAlert.SetActive(true);
 
             return;

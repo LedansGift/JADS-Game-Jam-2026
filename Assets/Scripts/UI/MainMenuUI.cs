@@ -27,6 +27,11 @@ public class MainMenuUI : MonoBehaviour
         mainMenuFader.ToggleBlockRaycasts(true);
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     public void StartGame()
     {
         AudioManager.PlaySFX(buttonClickSFX, transform.position);

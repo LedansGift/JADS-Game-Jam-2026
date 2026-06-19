@@ -17,27 +17,21 @@ public class GameManager : MonoBehaviour
 
     public static EventHandler<int> OnNewRoundStart;
     public static EventHandler<int> OnRoundEnd;
+    public static EventHandler OnTutorialStart;
+    public static Action OnDebuffTowers;
     public static Action OnGameWin;
 
     void Start()
     {
-        //Temp debug start
-        //StartGame();
-
         CityStronghold.OnGameOver += ToggleGameOver;
     }
 
     private void OnDisable()
     {
         CityStronghold.OnGameOver -= ToggleGameOver;
-    }
 
-    // private void StartGame()
-    // {
-    //     InputManager.Instance.GameStart();
-    //     OnNewRoundStart?.Invoke(this, roundIndex);
-    //     StartCoroutine(DelayedRoundStart());
-    // }
+        StopAllCoroutines();
+    }
 
     private IEnumerator DelayedRoundStart()
     {
@@ -45,9 +39,28 @@ public class GameManager : MonoBehaviour
         waveManager.StartRound(roundWaves[roundIndex]);
     }
 
+    public void TutorialFinished()
+    {
+        waveManager.StartRound(roundWaves[roundIndex]);
+    }
+
     public void StartNextRound()
     {
         roundIndex++;
+
+        if (roundIndex == 0)
+        {
+            InputManager.Instance.GameStart();
+            OnNewRoundStart?.Invoke(this, roundIndex);
+            OnTutorialStart?.Invoke(this, EventArgs.Empty);
+            return;
+        }
+
+        if (roundIndex == 3)
+        {
+            OnDebuffTowers?.Invoke();
+        }
+
         InputManager.Instance.GameStart();
         OnNewRoundStart?.Invoke(this, roundIndex);
         StartCoroutine(DelayedRoundStart());

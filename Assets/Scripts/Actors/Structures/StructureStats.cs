@@ -9,4 +9,6 @@ public class StructureStats : ScriptableObject
     public float attackFrequency;
     public int scrapCost;
     public bool laneStructure;
+    public int structureIndex;
+    public int buildsRequired;
 }
